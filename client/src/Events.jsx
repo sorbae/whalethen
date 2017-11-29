@@ -19,6 +19,13 @@ class Events extends React.Component {
       votes: this.state.votes,
     });
   }
+  removeEvent(e) {
+    const eventId = e.target.value;
+    console.log(this.props.timelineId)
+    axios.delete(`/entry/${eventId}`)
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+  }
   updateVotes(e) {
     if (e.target.value === '+') {
       this.setState({
@@ -35,10 +42,11 @@ class Events extends React.Component {
       <div className="event">
         <div className="eventName">{this.props.event.name}</div>
         <div className="description">{this.props.event.address}</div>
-        <span className="vote">{` Votes: ${this.state.votes}   `}
+        <div className="vote">{` Votes: ${this.state.votes}   `}
           <button className="votes" value="-" onClick={this.updateVotes}>-</button>
           <button className="votes" value="+" onClick={this.updateVotes}>+</button>
-        </span>
+        </div>
+        <button className="removeButton" onClick={this.removeEvent} value={this.props.event._id}>x</button>
       </div>
     );
   }

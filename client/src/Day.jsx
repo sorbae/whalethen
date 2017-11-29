@@ -37,6 +37,7 @@ const Day = (props) => {
 
 Day.propTypes = {
   day: propTypes.instanceOf(Object).isRequired,
+  timelineId: propTypes.string.isRequired,
 };
 
 export default Day;

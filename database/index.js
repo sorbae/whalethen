@@ -68,6 +68,11 @@ const addEventToDay = (event, timelineId, day) => {
     .then(model => model.saveAsync());
 };
 
+const removeEventFromDay = (eventId) => {
+  console.log(eventId);
+  return eventId;
+};
+
 const addNewEvent = (event, timelineId, day, timelineName) => {
   const newEvent = new Event(event);
   return newEvent.saveAsync()
@@ -79,4 +84,5 @@ module.exports.getTimelineByName = getTimelineByName;
 module.exports.addNewTimeline = addNewTimeline;
 module.exports.addNewEvent = addNewEvent;
 module.exports.addEventToDay = addEventToDay;
+module.exports.removeEventFromDay = removeEventFromDay;
 module.exports.updateVotes = updateVotes;
