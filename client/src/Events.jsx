@@ -13,6 +13,7 @@ class Events extends React.Component {
     this.patchVotesInDB = this.patchVotesInDB.bind(this);
     this.removeEvent = this.removeEvent.bind(this);
     this.preventDrag = this.preventDrag.bind(this);
+    this.enableDrag = this.enableDrag.bind(this);
     this.dragEvent = this.dragEvent.bind(this);
   }
   patchVotesInDB() {
@@ -25,7 +26,12 @@ class Events extends React.Component {
   }
   preventDrag() {
     this.setState({
-      canHasDrag: !this.state.canHasDrag,
+      canHasDrag: false,
+    });
+  }
+  enableDrag() {
+    this.setState({
+      canHasDrag: true,
     });
   }
   dragEvent() {
@@ -55,10 +61,31 @@ class Events extends React.Component {
       <div className="event" onClick={this.dragEvent}>
         <div className="eventName">{this.props.event.name}</div>
         <div className="description">{this.props.event.address}</div>
-        <div className="vote" onMouseEnter={this.preventDrag} onMouseLeave={this.preventDrag}>{`Votes: ${this.state.votes}`}
-          <button className="votes" value="-" onClick={this.updateVotes}>-</button>
-          <button className="votes" value="+" onClick={this.updateVotes}>+</button>
-          <button className="removeButton" onClick={this.removeEvent} value={this.props.event._id}>x</button>
+        <div className="vote">{`Votes: ${this.state.votes}`}
+          <button
+            className="votes"
+            value="-"
+            onClick={this.updateVotes}
+            onMouseEnter={this.preventDrag}
+            onMouseLeave={this.enableDrag}
+          >-
+          </button>
+          <button
+            className="votes"
+            value="+"
+            onClick={this.updateVotes}
+            onMouseEnter={this.preventDrag}
+            onMouseLeave={this.enableDrag}
+          >+
+          </button>
+          <button
+            className="removeButton"
+            onClick={this.removeEvent}
+            value={this.props.event._id}
+            onMouseEnter={this.preventDrag}
+            onMouseLeave={this.enableDrag}
+          >x
+          </button>
         </div>
       </div>
     );
@@ -69,6 +96,7 @@ Events.propTypes = {
   event: propTypes.instanceOf(Object).isRequired,
   day: propTypes.instanceOf(Object).isRequired,
   timelineId: propTypes.string.isRequired,
+  getTrip: propTypes.func.isRequired,
 };
 
 export default Events;
