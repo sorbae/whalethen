@@ -8,7 +8,6 @@ import TimelineInputBox from './TimelineInputBox';
 import StartDateBox from './StartDateBox';
 import EndDateBox from './EndDateBox';
 import CreateEventBox from './CreateEventBox';
-// import TimelineLookUp from './TimelineLookUp';
 
 class App extends React.Component {
   constructor() {
@@ -37,6 +36,7 @@ class App extends React.Component {
     this.handleNewAddress = this.handleNewAddress.bind(this);
     this.createEvent = this.createEvent.bind(this);
   }
+
   componentDidMount() {
     // on init function to make get request to server
     // temp using 1234 as the timelineId and test as timelineName
