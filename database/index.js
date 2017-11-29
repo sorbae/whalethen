@@ -68,14 +68,16 @@ const addEventToDay = (event, timelineId, day) => (
     .then(model => model.saveAsync())
 );
 
-const removeEventFromDay = (day, timelineId, eventId) => (
-  Day.findAsync({
+const removeEventFromDay = (day, timelineId, eventId) => {
+  console.log(eventId);
+  return Day.findAsync({
     day,
     timelineId,
   })
-    .then(date => date[0].events.id(eventId).remove().exec())
-    .catch(err => err)
-);
+    .tap(date => date[0].events.pull({ _id: eventId }))
+    .then(date => date[0].saveAsync())
+    .catch(err => err);
+};
 
 const addNewEvent = (event, timelineId, day, timelineName) => {
   const newEvent = new Event(event);
