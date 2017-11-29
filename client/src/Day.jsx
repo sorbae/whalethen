@@ -32,7 +32,7 @@ const Day = (props) => {
       </div>
     </div>
   );
-}
+};
 
 
 Day.propTypes = {

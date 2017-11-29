@@ -61,6 +61,7 @@ body {
   overflow: hidden;
 }
 
+<<<<<<< HEAD
 .scroll {
   height: 50vh;
   overflow: auto;
@@ -71,6 +72,8 @@ body {
   margin: 5px;
 }
 
+=======
+>>>>>>> 783220590fd271a2f7ad58f08a997547fc1d59d4
 .searchList {
   /*min-height: min-content;*/
   display: flex;
