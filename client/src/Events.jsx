@@ -7,11 +7,13 @@ class Events extends React.Component {
     super(props);
     this.state = {
       votes: this.props.event.votes,
-      events: this.props.day.events,
+      canHasDrag: true,
     };
     this.updateVotes = this.updateVotes.bind(this);
     this.patchVotesInDB = this.patchVotesInDB.bind(this);
     this.removeEvent = this.removeEvent.bind(this);
+    this.preventDrag = this.preventDrag.bind(this);
+    this.dragEvent = this.dragEvent.bind(this);
   }
   patchVotesInDB() {
     axios.put('/entry', {
@@ -20,6 +22,16 @@ class Events extends React.Component {
       eventId: this.props.event._id,
       votes: this.state.votes,
     });
+  }
+  preventDrag() {
+    this.setState({
+      canHasDrag: !this.state.canHasDrag,
+    });
+  }
+  dragEvent() {
+    if (this.state.canHasDrag) {
+      console.log('event clicked');
+    }
   }
   removeEvent(e) {
     const eventId = e.target.value;
@@ -40,10 +52,10 @@ class Events extends React.Component {
   }
   render() {
     return (
-      <div className="event">
+      <div className="event" onClick={this.dragEvent}>
         <div className="eventName">{this.props.event.name}</div>
         <div className="description">{this.props.event.address}</div>
-        <div className="vote">{`Votes: ${this.state.votes}`}
+        <div className="vote" onMouseEnter={this.preventDrag} onMouseLeave={this.preventDrag}>{`Votes: ${this.state.votes}`}
           <button className="votes" value="-" onClick={this.updateVotes}>-</button>
           <button className="votes" value="+" onClick={this.updateVotes}>+</button>
           <button className="removeButton" onClick={this.removeEvent} value={this.props.event._id}>x</button>
