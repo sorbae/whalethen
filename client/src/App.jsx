@@ -156,8 +156,16 @@ class App extends React.Component {
         <div className="title">Whale Then..</div>
         <div className="container timelineParams">
           <TimelineInputBox onInput={this.onInputChange} onEnter={this.onEnter} />
-          <StartDateBox onInput={this.onInputChange} onEnter={this.onEnter} />
-          <EndDateBox onInput={this.onInputChange} onEnter={this.onEnter} />
+          <StartDateBox
+            onInput={this.onInputChange}
+            onEnter={this.onEnter}
+            today={this.state.today}
+          />
+          <EndDateBox
+            onInput={this.onInputChange}
+            onEnter={this.onEnter}
+            startDate={this.state.startDate}
+          />
           <button className="scheduleSubmit" onClick={() => this.onSubmit()}>New Schedule</button>
         </div>
         <Timeline
