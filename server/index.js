@@ -52,8 +52,8 @@ app.put('/entry', ({ body }, response) => {
     .catch(() => response.sendStatus(409));
 });
 
-app.delete('/entry/:eventId', (request, response) => {
-  db.removeEventFromDay(request.params.eventId);
+app.delete('/entry/:timelineId/:day/:eventId', (request, response) => {
+  db.removeEventFromDay(request.params.day, request.params.timelineId, request.params.eventId);
   response.send(`removed ${request.params.eventId}`);
 });
 

@@ -10,6 +10,7 @@ class Events extends React.Component {
     };
     this.updateVotes = this.updateVotes.bind(this);
     this.patchVotesInDB = this.patchVotesInDB.bind(this);
+    this.removeEvent = this.removeEvent.bind(this);
   }
   patchVotesInDB() {
     axios.put('/entry', {
@@ -21,9 +22,8 @@ class Events extends React.Component {
   }
   removeEvent(e) {
     const eventId = e.target.value;
-    console.log(this.props.timelineId)
-    axios.delete(`/entry/${eventId}`)
-      .then(res => console.log(res))
+    axios.delete(`/entry/${this.props.timelineId}/${this.props.day.day}/${eventId}`)
+      .then(res => console.log(res.data))
       .catch(err => console.log(err));
   }
   updateVotes(e) {
