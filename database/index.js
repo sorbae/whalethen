@@ -34,8 +34,8 @@ const daySchema = mongoose.Schema({
 const Day = mongoose.model('Day', daySchema);
 const Event = mongoose.model('Event', eventSchema);
 
-const updateVotes = (timelineId, day, eventId, votes) => {
-  return Day.findAsync({
+const updateVotes = (timelineId, day, eventId, votes) => (
+  Day.findAsync({
     day,
     timelineId,
   })
@@ -43,8 +43,8 @@ const updateVotes = (timelineId, day, eventId, votes) => {
       const event = results[0].events.id(eventId);
       event.votes = votes;
       return results[0].saveAsync();
-    });
-};
+    })
+);
 
 const addNewTimeline = (timelineId, numberOfDays, timelineName) => {
   const timeline = [];
@@ -55,18 +55,25 @@ const addNewTimeline = (timelineId, numberOfDays, timelineName) => {
   return Promise.map(timeline, day => day.saveAsync());
 };
 
-const getTimelineById = (timelineId) => {
-  return Day.findAsync({ timelineId })
-    .then(results => results.sort((a, b) => a.day - b.day));
-};
+const getTimelineById = timelineId => (
+  Day.findAsync({ timelineId })
+    .then(results => results.sort((a, b) => a.day - b.day))
+);
 
 const getTimelineByName = timelineName => Day.findAsync({ timelineName });
 
-const addEventToDay = (event, timelineId, day) => {
-  return Day.findOneAsync({ timelineId, day })
+const addEventToDay = (event, timelineId, day) => (
+  Day.findOneAsync({ timelineId, day })
     .tap(model => model.events.push(event))
-    .then(model => model.saveAsync());
-};
+    .then(model => model.saveAsync())
+);
+
+const removeEventFromDay = (day, timelineId, eventId) => (
+  Day.findAsync({ day, timelineId })
+    .tap(date => date[0].events.pull({ _id: eventId }))
+    .then(date => date[0].saveAsync())
+    .catch(err => err)
+);
 
 const addNewEvent = (event, timelineId, day, timelineName) => {
   const newEvent = new Event(event);
@@ -79,4 +86,5 @@ module.exports.getTimelineByName = getTimelineByName;
 module.exports.addNewTimeline = addNewTimeline;
 module.exports.addNewEvent = addNewEvent;
 module.exports.addEventToDay = addEventToDay;
+module.exports.removeEventFromDay = removeEventFromDay;
 module.exports.updateVotes = updateVotes;

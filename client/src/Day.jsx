@@ -12,6 +12,7 @@ const Day = (props) => {
     handleNewEvent,
     handleNewAddress,
     createEvent,
+    getTrip,
   } = props;
 
   return (
@@ -26,7 +27,7 @@ const Day = (props) => {
       <div className="events">
         <div className="scroll">
           {_.map(day.events, (event, index) =>
-            <Event day={day} timelineId={timelineId} event={event} key={index} />)
+            <Event day={day} timelineId={timelineId} event={event} key={index} getTrip={getTrip} />)
           }
         </div>
       </div>
@@ -37,6 +38,7 @@ const Day = (props) => {
 
 Day.propTypes = {
   day: propTypes.instanceOf(Object).isRequired,
+  timelineId: propTypes.string.isRequired,
 };
 
 export default Day;

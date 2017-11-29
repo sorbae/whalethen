@@ -28,7 +28,7 @@ const SearchList = (props) => {
 };
 
 SearchList.propTypes = {
-  searchList: propTypes.instanceOf(Array).isRequired,
+  searchList: propTypes.instanceOf(Array),
   addNewEvent: propTypes.func.isRequired,
   onDaySelect: propTypes.func.isRequired,
   selectedDay: propTypes.number.isRequired,

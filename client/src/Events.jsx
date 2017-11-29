@@ -7,9 +7,11 @@ class Events extends React.Component {
     super(props);
     this.state = {
       votes: this.props.event.votes,
+      events: this.props.day.events,
     };
     this.updateVotes = this.updateVotes.bind(this);
     this.patchVotesInDB = this.patchVotesInDB.bind(this);
+    this.removeEvent = this.removeEvent.bind(this);
   }
   patchVotesInDB() {
     axios.put('/entry', {
@@ -18,6 +20,12 @@ class Events extends React.Component {
       eventId: this.props.event._id,
       votes: this.state.votes,
     });
+  }
+  removeEvent(e) {
+    const eventId = e.target.value;
+    axios.delete(`/entry/${this.props.timelineId}/${this.props.day.day}/${eventId}`)
+      .then(() => this.props.getTrip())
+      .catch(err => console.log(err));
   }
   updateVotes(e) {
     if (e.target.value === '+') {
@@ -35,10 +43,11 @@ class Events extends React.Component {
       <div className="event">
         <div className="eventName">{this.props.event.name}</div>
         <div className="description">{this.props.event.address}</div>
-        <span className="vote">{` Votes: ${this.state.votes}   `}
+        <div className="vote">{`Votes: ${this.state.votes}`}
           <button className="votes" value="-" onClick={this.updateVotes}>-</button>
           <button className="votes" value="+" onClick={this.updateVotes}>+</button>
-        </span>
+          <button className="removeButton" onClick={this.removeEvent} value={this.props.event._id}>x</button>
+        </div>
       </div>
     );
   }

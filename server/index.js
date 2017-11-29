@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(`${__dirname}/../client/`));
 
-app.options('/', (request, response) => response.json('GET,POST,PUT,GET'));
+app.options('/', (request, response) => response.json('GET,POST,PUT,GET,DELETE'));
 
 app.get('/timeline/:timelineName/:timelineId', (request, response) => {
   db.getTimelineById(request.params.timelineId)
@@ -52,9 +52,11 @@ app.put('/entry', ({ body }, response) => {
     .catch(() => response.sendStatus(409));
 });
 
-app.delete('/entry/:id', (request, response) => {
-  // for removing an entry from the day model
-  response.send('for removing an entry from the day model');
+app.delete('/entry/:timelineId/:day/:eventId', (request, response) => {
+  db.removeEventFromDay(request.params.day, request.params.timelineId, request.params.eventId)
+    .then(() => response.status(200).end())
+    .tapCatch(err => console.error(err))
+    .catch(() => response.status(409).end());
 });
 
 app.get('/search', (request, response) => {
