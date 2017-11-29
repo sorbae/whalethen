@@ -23,7 +23,6 @@ class App extends React.Component {
       newEvent: '',
       newEventAddress: '',
       today: '',
-      bye: '',
     };
 
     this.onInputChange = this.onInputChange.bind(this);
