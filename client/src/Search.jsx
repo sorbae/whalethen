@@ -3,6 +3,7 @@ import axios from 'axios';
 import propTypes from 'prop-types';
 import SearchBar from './SearchBar';
 import SearchList from './SearchList';
+import Data from '../../sampleData';
 
 class Search extends React.Component {
   constructor(props) {
@@ -10,7 +11,7 @@ class Search extends React.Component {
     this.state = {
       locationSearch: '',
       termBar: '',
-      searchList: [],
+      searchList: Data.sampleData,
       selectedDay: '',
     };
 

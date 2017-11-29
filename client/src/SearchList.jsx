@@ -3,7 +3,6 @@ import _ from 'lodash';
 import propTypes from 'prop-types';
 import SearchEntry from './SearchEntry';
 
-
 const SearchList = (props) => {
   const {
     searchList,
