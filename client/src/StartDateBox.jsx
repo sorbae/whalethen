@@ -1,13 +1,15 @@
 import React from 'react';
 import propTypes from 'prop-types';
 
-const StartDateBox = ({ onInput, onEnter }) => (
+
+const StartDateBox = ({ onInput, onEnter, today }) => (
   <div className="inputBox label">
     <label className="startDate" htmlFor="startDate">
     Start Date:
     <input
       id="startDate"
-      type="text"
+      type="date"
+      min={today}
       name="startDate"
       onChange={event => onInput(event)}
       placeholder="enter a start date"
@@ -20,6 +22,7 @@ const StartDateBox = ({ onInput, onEnter }) => (
 StartDateBox.propTypes = {
   onInput: propTypes.func.isRequired,
   onEnter: propTypes.func.isRequired,
+  today: propTypes.string.isRequired,
 };
 
 

@@ -23,6 +23,7 @@ class App extends React.Component {
       createEventDay: '',
       newEvent: '',
       newEventAddress: '',
+      today: '',
     };
 
     this.onInputChange = this.onInputChange.bind(this);
@@ -42,6 +43,7 @@ class App extends React.Component {
     // on init function to make get request to server
     // temp using 1234 as the timelineId and test as timelineName
     // this.getTrip();
+    this.setDate();
   }
 
   onInputChange(event) {
@@ -88,6 +90,14 @@ class App extends React.Component {
     if (event.key === 'Enter') {
       this.getTrip();
     }
+  }
+
+  setDate() {
+    let today = moment().format('L').split('/');
+    today = `${today[2]}-${today[0]}-${today[1]}`;
+    this.setState({
+      today,
+    });
   }
 
   getTrip() {
@@ -163,10 +173,12 @@ class App extends React.Component {
           <StartDateBox
             onInput={this.onInputChange}
             onEnter={this.onEnter}
+            today={this.state.today}
           />
           <EndDateBox
             onInput={this.onInputChange}
             onEnter={this.onEnter}
+            startDate={this.state.startDate}
           />
           <button
             className="scheduleSubmit"
