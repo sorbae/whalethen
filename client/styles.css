@@ -8,7 +8,7 @@ body {
 .App {
   display: grid;
   grid-template-columns: 4fr 1fr;
-  grid-template-rows: 5% 5% 90%;
+  grid-template-rows: 5% 20% auto;
   grid-template-areas:
     "navbar navbar"
     "createTimeline search"
@@ -56,8 +56,19 @@ body {
   border: 1px solid black;
 }
 
+.events {
+  height: 50vh;
+  overflow: hidden;
+}
+
+.scroll {
+  height: 50vh;
+  overflow: auto;
+}
+
 .event {
-  padding: .3em;
+  padding: 5px;
+  margin: 5px;
 }
 
 .searchList {
@@ -97,54 +108,39 @@ body {
   height: 75vh;
 }
 
-.startDate {
-  padding: 5px;
-}
-
-.endDate {
-  padding: 5px;
-}
-
-
-.timelineName {
-  padding: 5px;
-}
-
 .inputBox {
   display: flex;
-  align-items: flex-end;
   justify-content: space-around;
   padding: 2px;
 }
 
-input {
-  border-radius: 5px;
-  padding-left: 5px;
+.createEvent, .createEventName, .createEventAddress  {
+  padding: 5px;
 }
 
 .createEvent {
-  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  margin: 0 auto;
 }
 
-.createEventName {
-  padding: 5px;
-}
-
-.createEventAddress {
-  padding: 5px;
+.createEvent button {
+  font-size: 0.9rem;
 }
 
 .createBox {
-  grid-area: createbox;
-  background-color: #9CCEFF;
+  background-color: #e7e7e7;
   display: flex;
-  align-items: flex-end;
-  justify-content: space-around;
-  padding: 5px;
+  flex-direction: column;
 }
 
-.timelineLookUp {
-  grid-area: lookupTimeline;
+.eventName {
+  font-weight: bold;
+}
+
+.description {
+  font-size: 0.9rem;
 }
 
 .timelineParams {
@@ -154,6 +150,19 @@ input {
   background-color: #9CCEFF;
 }
 
+.timelineParams input {
+  padding: 3px;
+  border-radius: 1px;
+  margin: 5px;
+}
+
+.scheduleSubmit {
+  padding: 0 4px;
+  margin: 7px 0;
+  font-size: 0.8rem;
+  border-radius: 2px;
+}
+
 .timeline {
   display: flex;
   grid-area: timeline;
@@ -161,10 +170,6 @@ input {
   flex: 1;
   overflow: auto;
   font-size: 1.1em;
-}
-
-.event {
-  margin: 5px;
 }
 
 button {

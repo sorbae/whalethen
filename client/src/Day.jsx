@@ -16,7 +16,6 @@ const Day = (props) => {
 
   return (
     <div className="dayView">
-      <div className="dayTitle">Day {day.day}</div>
       <CreateEventBox
         day={day.day}
         onCreateEnter={onCreateEnter}
@@ -25,9 +24,11 @@ const Day = (props) => {
         createEvent={createEvent}
       />
       <div className="events">
-        {_.map(day.events, (event, index) =>
-          <Event day={day} timelineId={timelineId} event={event} key={index} />)
-        }
+        <div className="scroll">
+          {_.map(day.events, (event, index) =>
+            <Event day={day} timelineId={timelineId} event={event} key={index} />)
+          }
+        </div>
       </div>
     </div>
   );

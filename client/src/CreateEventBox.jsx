@@ -12,24 +12,23 @@ const CreateEventBox = (props) => {
 
   return (
     <div className="container createBox label">
+      <div className="dayTitle">Day {props.day}</div>
       <label className="createEvent" htmlFor="createEvent">
-        <div className="create-input">
-          <input
-            id="createEventName"
-            type="text"
-            name="createEventName"
-            placeholder="enter an event"
-            onChange={handleNewEvent}
-          />
-          <input
-            id="createEventAddress"
-            type="text"
-            name="createEventAddress"
-            placeholder="enter an address"
-            onChange={handleNewAddress}
-            onKeyUp={event => onCreateEnter(event)}
-          />
-        </div>
+        <input
+          className="createEventName"
+          type="text"
+          name="createEventName"
+          placeholder="Enter an event"
+          onChange={handleNewEvent}
+        />
+        <input
+          className="createEventAddress"
+          type="text"
+          name="createEventAddress"
+          placeholder="Enter an address"
+          onChange={handleNewAddress}
+          onKeyUp={event => onCreateEnter(event)}
+        />
         <button className="addEvent" onClick={() => createEvent(props.day)}>Create Event</button>
       </label>
     </div>
