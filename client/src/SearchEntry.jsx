@@ -43,7 +43,7 @@ SearchListEntry.propTypes = {
   event: propTypes.instanceOf(Object).isRequired,
   addNewEvent: propTypes.func.isRequired,
   onDaySelect: propTypes.func.isRequired,
-  selectedDay: propTypes.string.isRequired,
+  selectedDay: propTypes.number.isRequired,
   numberOfDays: propTypes.number.isRequired,
 };
 
