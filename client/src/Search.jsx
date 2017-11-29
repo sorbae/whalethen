@@ -39,7 +39,6 @@ class Search extends React.Component {
     this.setState({
       selectedDay: Number(e.target.value.slice(4)),
     });
-    console.log(this);
   }
   handleCat(e) {
     this.setState({
