@@ -5,10 +5,10 @@ import shortid from 'shortid';
 import Search from './Search';
 import Timeline from './Timeline';
 import TimelineInputBox from './TimelineInputBox';
-import TimelineLookUp from './TimelineLookUp';
 import StartDateBox from './StartDateBox';
 import EndDateBox from './EndDateBox';
 import CreateEventBox from './CreateEventBox';
+// import TimelineLookUp from './TimelineLookUp';
 
 class App extends React.Component {
   constructor() {
@@ -20,7 +20,6 @@ class App extends React.Component {
       endDate: '',
       numberOfDays: 0,
       timelineId: '', // temp until we get a way to produce these
-      createEventDay: '',
       newEvent: '',
       newEventAddress: '',
       today: '',
@@ -33,7 +32,6 @@ class App extends React.Component {
     this.handleID = this.handleID.bind(this);
     this.handleName = this.handleName.bind(this);
     this.onLookupEnter = this.onLookupEnter.bind(this);
-    this.onCreateDaySelect = this.onCreateDaySelect.bind(this);
     this.onCreateEnter = this.onCreateEnter.bind(this);
     this.handleNewEvent = this.handleNewEvent.bind(this);
     this.handleNewAddress = this.handleNewAddress.bind(this);
@@ -78,12 +76,6 @@ class App extends React.Component {
     if (event.key === 'Enter') {
       this.createEvent();
     }
-  }
-
-  onCreateDaySelect(e) {
-    this.setState({
-      createEventDay: e.target.value,
-    });
   }
 
   onLookupEnter(event) {
@@ -138,7 +130,7 @@ class App extends React.Component {
   }
 
   addNewEvent(event, selectedDay) {
-    const day = Number(selectedDay.slice(4));
+    const day = Number(selectedDay);
     axios.post('/entry', {
       event,
       timelineId: this.state.timelineId,
@@ -149,61 +141,34 @@ class App extends React.Component {
       .catch(err => console.error('add event error: ', err));
   }
 
-  createEvent() {
+  createEvent(day) {
     const eventObj = {
       name: this.state.newEvent,
       address: this.state.newEventAddress,
       votes: 0,
     };
-    this.addNewEvent(eventObj, this.state.createEventDay);
+    this.addNewEvent(eventObj, day);
   }
 
   render() {
     return (
       <div className="App">
-        <div className="title">Well Hollo</div>
+        <div className="title">Whale Then..</div>
         <div className="container timelineParams">
-          <div className="label">{this.state.timelineName}</div>
-          <div className="label">{this.state.timelineId}</div>
-
-          <TimelineInputBox
-            onInput={this.onInputChange}
-            onEnter={this.onEnter}
-          />
-          <StartDateBox
-            onInput={this.onInputChange}
-            onEnter={this.onEnter}
-            today={this.state.today}
-          />
-          <EndDateBox
-            onInput={this.onInputChange}
-            onEnter={this.onEnter}
-            startDate={this.state.startDate}
-          />
-          <button
-            className="scheduleSubmit"
-            onClick={() => this.onSubmit()}
-          >
-            New Schedule
-          </button>
+          <TimelineInputBox onInput={this.onInputChange} onEnter={this.onEnter} />
+          <StartDateBox onInput={this.onInputChange} onEnter={this.onEnter} />
+          <EndDateBox onInput={this.onInputChange} onEnter={this.onEnter} />
+          <button className="scheduleSubmit" onClick={() => this.onSubmit()}>New Schedule</button>
         </div>
-        <CreateEventBox
+        <Timeline
+          timelineData={this.state.timelineData}
           timelineId={this.state.timelineId}
-          numberOfDays={this.state.numberOfDays}
-          onCreateDaySelect={this.onCreateDaySelect}
+          timelineName={this.state.timelineName}
           onCreateEnter={this.onCreateEnter}
-          createEventDay={this.state.createEventDay}
           handleNewEvent={this.handleNewEvent}
           handleNewAddress={this.handleNewAddress}
           createEvent={this.createEvent}
         />
-        <TimelineLookUp
-          getTrip={this.getTrip}
-          handleID={this.handleID}
-          handleName={this.handleName}
-          onLookupEnter={this.onLookupEnter}
-        />
-        <Timeline timelineData={this.state.timelineData} timelineId={this.state.timelineId} />
         <Search
           numberOfDays={this.state.numberOfDays}
           addNewEvent={this.addNewEvent}

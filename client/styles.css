@@ -1,14 +1,18 @@
 body {
   margin: 0 auto;
   box-sizing: border-box;
-  /*background: grey;*/
+  font-size: 12px;
+  font-family: 'Noto Sans', sans-serif;
 }
 
 .App {
   display: grid;
   grid-template-columns: 4fr 1fr;
-  grid-template-rows: 0.20fr 0.20fr 0.20fr 5fr;
-  grid-template-areas: "navbar navbar" "createTimeline createbox" "lookupTimeline search" "timeline search";
+  grid-template-rows: 5% 5% 90%;
+  grid-template-areas:
+    "navbar navbar"
+    "createTimeline search"
+    "timeline search";
 }
 
 .container {
@@ -16,10 +20,29 @@ body {
   padding: 10px;
 }
 
+/***** Fonts ******/
+.label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size:1rem;
+}
+
+/***** Navbar *****/
+.title {
+  grid-area: navbar;
+  text-align: center;
+  font-size: 45pt;
+  font-weight: bold;
+  font-family: 'Comfortaa', cursive;
+}
+
+/***** Event Days ****/
 .day {
   display: flex;
   min-height: min-content;
   background: white;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-weight: bold;
 }
 
 .dayTitle {
@@ -37,13 +60,6 @@ body {
   padding: .3em;
 }
 
-.label {
-  font-family: 'Pacifico', cursive;
-  font-size: 1.15em;
-}
-
-.searchComponent {}
-
 .searchList {
   /*min-height: min-content;*/
   display: flex;
@@ -60,7 +76,7 @@ body {
   grid-area: search;
   align-content: stretch;
   flex-direction: column;
-  font-family: 'Boogaloo', cursive;
+  background: #e7e7e7;
 }
 
 .searchSubmit button {
@@ -89,17 +105,6 @@ body {
   padding: 5px;
 }
 
-.title {
-  display: grid;
-  grid-column-start: 1;
-  grid-column-end: 3;
-  grid-row-start: 1;
-  grid-row-end: 2;
-  text-align: center;
-  font-size: 45pt;
-  font-weight: bold;
-  font-family: 'Sacramento', cursive;
-}
 
 .timelineName {
   padding: 5px;
@@ -142,23 +147,12 @@ input {
   grid-area: lookupTimeline;
 }
 
-/* .timelineName {
-  grid-area: createTimeline;
-} */
-
 .timelineParams {
   display: flex;
   grid-area: createTimeline;
   justify-content: space-around;
   background-color: #9CCEFF;
 }
-
-/* .timelineParams button {
-  background: rgb(148, 36, 36);
-  border-radius: 2px;
-  height: 33%;
-  align-self: center;
-} */
 
 .timeline {
   display: flex;
@@ -167,7 +161,6 @@ input {
   flex: 1;
   overflow: auto;
   font-size: 1.1em;
-  font-family: 'Boogaloo', cursive;
 }
 
 .event {
@@ -175,15 +168,7 @@ input {
 }
 
 button {
-  height: 60px;
-  width: 80px;
-  background-color: rgb(56, 222, 225); /* Green */
-  border: none;
-  color: white;
-  border-radius: 1px;
-  padding: 5px 5px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
+  border-radius: 2px;
   font-size: 16px;
+  font-family: 'Cormorant Garamond', serif;
 }
