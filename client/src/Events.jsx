@@ -43,7 +43,7 @@ class Events extends React.Component {
       <div className="event">
         <div className="eventName">{this.props.event.name}</div>
         <div className="description">{this.props.event.address}</div>
-        <div className="vote">{` Votes: ${this.state.votes}   `}
+        <div className="vote">{`Votes: ${this.state.votes}`}
           <button className="votes" value="-" onClick={this.updateVotes}>-</button>
           <button className="votes" value="+" onClick={this.updateVotes}>+</button>
           <button className="removeButton" onClick={this.removeEvent} value={this.props.event._id}>x</button>
