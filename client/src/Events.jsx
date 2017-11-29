@@ -7,6 +7,7 @@ class Events extends React.Component {
     super(props);
     this.state = {
       votes: this.props.event.votes,
+      events: this.props.day.events,
     };
     this.updateVotes = this.updateVotes.bind(this);
     this.patchVotesInDB = this.patchVotesInDB.bind(this);
@@ -23,7 +24,7 @@ class Events extends React.Component {
   removeEvent(e) {
     const eventId = e.target.value;
     axios.delete(`/entry/${this.props.timelineId}/${this.props.day.day}/${eventId}`)
-      .then(res => console.log(res.data))
+      .then(() => this.props.getTrip())
       .catch(err => console.log(err));
   }
   updateVotes(e) {

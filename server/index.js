@@ -54,9 +54,9 @@ app.put('/entry', ({ body }, response) => {
 
 app.delete('/entry/:timelineId/:day/:eventId', (request, response) => {
   db.removeEventFromDay(request.params.day, request.params.timelineId, request.params.eventId)
-    // .then(() => db.getTimelineById(request.params.timelineId))
-    // .then(res => console.log(res));
-    .then(() => response.send(200))
+    .then(() => response.status(200).end())
+    .tapCatch(err => console.error(err))
+    .catch(() => response.status(409).end());
 });
 
 app.get('/search', (request, response) => {
