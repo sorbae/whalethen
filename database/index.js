@@ -73,8 +73,7 @@ const removeEventFromDay = (day, timelineId, eventId) => (
     day,
     timelineId,
   })
-    .tap(date => console.log(date[0].events))
-    .then(date => date[0].events.update({ $pull: { 'id': eventId } }))
+    .then(date => date[0].events.id(eventId).remove().exec())
     .catch(err => err)
 );
 
