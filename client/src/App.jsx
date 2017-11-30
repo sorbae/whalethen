@@ -2,12 +2,14 @@ import React from 'react';
 import axios from 'axios';
 import moment from 'moment';
 import shortid from 'shortid';
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+
 import Search from './Search';
 import Timeline from './Timeline';
 import TimelineInputBox from './TimelineInputBox';
 import StartDateBox from './StartDateBox';
 import EndDateBox from './EndDateBox';
-import CreateEventBox from './CreateEventBox';
 
 class App extends React.Component {
   constructor() {
@@ -187,4 +189,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default DragDropContext(HTML5Backend)(App);

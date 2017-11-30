@@ -1,21 +1,39 @@
 import React from 'react';
 import _ from 'lodash';
 import propTypes from 'prop-types';
+import { DropTarget } from 'react-dnd';
+
 import Event from './Events';
+import { updateEvent } from './Drop';
+import { ItemTypes } from './Constants';
 import CreateEventBox from './CreateEventBox';
+
+const eventTarget = {
+  drop({ day, getTrip }) {
+    updateEvent(day.day, getTrip);
+    return {};
+  },
+};
+
+function collect({ dropTarget }) {
+  return {
+    connectDropTarget: dropTarget(),
+  };
+}
 
 const Day = (props) => {
   const {
     day,
     timelineId,
     onCreateEnter,
+    connectDropTarget,
     handleNewEvent,
     handleNewAddress,
     createEvent,
     getTrip,
   } = props;
 
-  return (
+  return connectDropTarget(
     <div className="dayView">
       <CreateEventBox
         day={day.day}
@@ -27,11 +45,17 @@ const Day = (props) => {
       <div className="events">
         <div className="scroll">
           {_.map(day.events, (event, index) =>
-            <Event day={day} timelineId={timelineId} event={event} key={index} getTrip={getTrip} />)
+            <Event
+              day={day}
+              timelineId={timelineId}
+              event={event}
+              key={index}
+              getTrip={getTrip}
+            />)
           }
         </div>
       </div>
-    </div>
+    </div>,
   );
 };
 
@@ -39,6 +63,7 @@ const Day = (props) => {
 Day.propTypes = {
   day: propTypes.instanceOf(Object).isRequired,
   timelineId: propTypes.string.isRequired,
+  connectDropTarget: propTypes.func.isRequired,
 };
 
-export default Day;
+export default DropTarget(ItemTypes.EVENT, eventTarget, collect)(Day);

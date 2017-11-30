@@ -69,9 +69,9 @@ const addEventToDay = (event, timelineId, day) => (
 );
 
 const removeEventFromDay = (day, timelineId, eventId) => (
-  Day.findAsync({ day, timelineId })
-    .tap(date => date[0].events.pull({ _id: eventId }))
-    .then(date => date[0].saveAsync())
+  Day.findOneAsync({ day, timelineId })
+    .tap(date => date.events.pull({ _id: eventId }))
+    .then(date => date.saveAsync())
     .catch(err => err)
 );
 
