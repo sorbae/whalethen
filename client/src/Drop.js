@@ -1,27 +1,22 @@
 import axios from 'axios';
 
-let heldEvent;
+let selectedEvent;
 
 exports.observe = (event) => {
-  heldEvent = event;
+  selectedEvent = event;
 };
 
 exports.updateEvent = (targetDay, updateTimeline) => (
-  axios.delete(`/entry/${heldEvent.timelineId}/${heldEvent.day}/${heldEvent.event._id}`)
+  axios.delete(`/entry/${selectedEvent.timelineId}/${selectedEvent.day}/${selectedEvent.event._id}`)
     .then(() => axios.post('/entry', {
       event: {
-        address: heldEvent.event.address,
-        name: heldEvent.event.name,
-        votes: heldEvent.event.votes,
+        address: selectedEvent.event.address,
+        name: selectedEvent.event.name,
+        votes: selectedEvent.event.votes,
       },
-      timelineId: heldEvent.timelineId,
+      timelineId: selectedEvent.timelineId,
       day: targetDay,
     })
       .then(() => updateTimeline())
       .catch(err => console.log(err)))
 );
-
-// retain the event being dragged
-// when dropped
-//  send a patch req to the server
-//  then update the state of the app???

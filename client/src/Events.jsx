@@ -6,11 +6,11 @@ import { ItemTypes } from './Constants';
 import { observe } from './Drop';
 
 const eventSource = {
-  beginDrag(props) {
+  beginDrag({ event, day, timelineId }) {
     const selectedEvent = {
-      event: props.event,
-      day: props.day.day,
-      timelineId: props.timelineId,
+      event,
+      timelineId,
+      day: day.day,
     };
     observe(selectedEvent);
     return selectedEvent;
