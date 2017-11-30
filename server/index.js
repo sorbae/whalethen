@@ -2,8 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const webpack = require('webpack');
+const passport = require('passport');
+const passportSetup = require('../auth/config');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
+const cookieSession = require('cookie-session');
 const api = require('./placesApi.js');
 const db = require('../database/');
 const config = require('../webpack.config.js');
@@ -21,6 +24,12 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(`${__dirname}/../client/`));
+app.use(cookieSession({
+  maxAge: 24 * 60 * 60 * 1000,
+  keys: [process.env.COOKIEKEY],
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.options('/', (request, response) => response.json('GET,POST,PUT,GET'));
 
@@ -66,6 +75,19 @@ app.get('/search', (request, response) => {
     })
     .tapCatch(err => console.error(err))
     .catch(() => response.sendStatus(409));
+});
+
+app.get('/authenticate', passport.authenticate('google', {
+  scope: ['profile'],
+}));
+
+app.get('/auth/google/redirect', passport.authenticate('google'), (req, res) => {
+  res.redirect('/profile');
+});
+
+app.get('/logout', (req, res) => {
+  req.logout();
+  res.redirect('/');
 });
 
 const port = process.env.PORT;
