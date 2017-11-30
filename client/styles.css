@@ -27,12 +27,23 @@ body {
 }
 
 /***** Navbar *****/
-.title {
+nav {
   grid-area: navbar;
+}
+
+.title {
   text-align: center;
-  font-size: 45pt;
+  font-size: 4rem;
   font-weight: bold;
   font-family: 'Comfortaa', cursive;
+}
+
+.nav-links {
+  float: right;
+}
+
+a {
+  padding: 5px;
 }
 
 /***** Event Days ****/
