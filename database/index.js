@@ -21,7 +21,7 @@ const eventSchema = mongoose.Schema({
   name: String,
   address: String,
   rating: String,
-  votes: { type: Number, default: 0 },
+  votes: { type: Number, default: 1 },
 });
 
 const daySchema = mongoose.Schema({

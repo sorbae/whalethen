@@ -3,22 +3,21 @@ import _ from 'lodash';
 import propTypes from 'prop-types';
 import { DropTarget } from 'react-dnd';
 
-import { ItemTypes } from './Constants';
 import Event from './Events';
-import CreateEventBox from './CreateEventBox';
 import { updateEvent } from './Drop';
+import { ItemTypes } from './Constants';
+import CreateEventBox from './CreateEventBox';
 
 const eventTarget = {
-  drop(props) {
-    updateEvent(props.day.day, props.getTrip);
+  drop({ day, getTrip }) {
+    updateEvent(day.day, getTrip);
     return {};
   },
 };
 
-function collect(connect, monitor) {
+function collect({ dropTarget }) {
   return {
-    connectDropTarget: connect.dropTarget(),
-    isOver: monitor.isOver(),
+    connectDropTarget: dropTarget(),
   };
 }
 
@@ -26,9 +25,8 @@ const Day = (props) => {
   const {
     day,
     timelineId,
-    connectDropTarget,
-    isOver,
     onCreateEnter,
+    connectDropTarget,
     handleNewEvent,
     handleNewAddress,
     createEvent,
@@ -56,19 +54,6 @@ const Day = (props) => {
             />)
           }
         </div>
-        {isOver &&
-          <div style={{
-            position: 'absolute',
-            top: 500,
-            left: 500,
-            height: '300px',
-            width: '600px',
-            zIndex: 1,
-            opacity: 0.5,
-            backgroundColor: 'blue',
-            }}
-        />
-      }
       </div>
     </div>,
   );
@@ -79,7 +64,6 @@ Day.propTypes = {
   day: propTypes.instanceOf(Object).isRequired,
   timelineId: propTypes.string.isRequired,
   connectDropTarget: propTypes.func.isRequired,
-  isOver: propTypes.bool.isRequired,
 };
 
 export default DropTarget(ItemTypes.EVENT, eventTarget, collect)(Day);
