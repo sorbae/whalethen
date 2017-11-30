@@ -84,6 +84,10 @@ const getTimelineById = timelineId => (
     .then(results => results.sort((a, b) => a.day - b.day))
 );
 
+const getEventAddress = (timelineId) => {
+  
+}
+
 const getTimelineByName = timelineName => Day.findAsync({ timelineName });
 
 const addEventToDay = (event, timelineId, day) => (

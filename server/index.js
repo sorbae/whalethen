@@ -44,6 +44,10 @@ app.get('/timeline/:timelineName/:timelineId', (request, response) => {
     .catch(() => response.status(409).end());
 });
 
+app.get('/address', (request, response) => {
+  response.send('axios?');
+});
+
 app.post('/timeline', ({ body }, response) => {
   db.addNewTimeline(body.timelineId, body.numberOfDays)
     .then(() => response.sendStatus(200))

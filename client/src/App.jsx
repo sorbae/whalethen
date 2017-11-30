@@ -11,6 +11,9 @@ import TimelineInputBox from './TimelineInputBox';
 import TimelineLookup from './TimelineLookup';
 import StartDateBox from './StartDateBox';
 import EndDateBox from './EndDateBox';
+import CreateEventBox from './CreateEventBox';
+import MapView from './MapView';
+
 
 class App extends React.Component {
   constructor() {
@@ -27,6 +30,7 @@ class App extends React.Component {
       newEvent: '',
       newEventAddress: '',
       today: '',
+      view: 'default',
     };
 
     this.checkAuth = this.checkAuth.bind(this);
@@ -71,6 +75,18 @@ class App extends React.Component {
           .catch(err => console.error('error in submit ', err));
       });
     });
+  }
+
+  onToggleView() {
+    if (this.state.view === 'default') {
+      this.setState({
+        view: 'mapview',
+      });
+    } else if (this.state.view === 'mapview') {
+      this.setState({
+        view: 'default',
+      });
+    }
   }
 
   onEnter(event) {
@@ -164,7 +180,33 @@ class App extends React.Component {
     this.addNewEvent(eventObj, day);
   }
 
+  renderView() {
+    if (this.state.view === 'default') {
+      return (
+        <Timeline
+          timelineData={this.state.timelineData}
+          timelineId={this.state.timelineId}
+          timelineName={this.state.timelineName}
+          onCreateEnter={this.onCreateEnter}
+          handleNewEvent={this.handleNewEvent}
+          handleNewAddress={this.handleNewAddress}
+          createEvent={this.createEvent}
+        />);
+    } else if (this.state.view === 'mapview') {
+      return (
+        <MapView
+          timelineName={this.state.timelineId}
+        />);
+    }
+  }
+
   render() {
+    let buttonName;
+    if (this.state.view === 'default') {
+      buttonName = 'Map View';
+    } else {
+      buttonName = 'Day View';
+    }
     return (
       <div className="App">
         {this.state.isLoggedIn ? (
@@ -192,26 +234,17 @@ class App extends React.Component {
             startDate={this.state.startDate}
           />
           <button className="scheduleSubmit" onClick={() => this.onSubmit()}>New Schedule</button>
+          <button className="mapView" onClick={() => this.onToggleView()}>{buttonName}</button>
         </div>
-        <Timeline
-          timelineData={this.state.timelineData}
-          timelineId={this.state.timelineId}
-          timelineName={this.state.timelineName}
-          onCreateEnter={this.onCreateEnter}
-          handleNewEvent={this.handleNewEvent}
-          handleNewAddress={this.handleNewAddress}
-          createEvent={this.createEvent}
-          getTrip={this.getTrip}
-          user={this.state.userInfo}
-        />
         <div>
-          <TimelineLookup 
+          <TimelineLookup
             handleId={this.handleId}
             handleName={this.handleName}
             getTrip={this.getTrip}
             onLookupEnter={this.onLookupEnter}
           />
         </div>
+        <div>{this.renderView()}</div>
         <Search
           numberOfDays={this.state.numberOfDays}
           addNewEvent={this.addNewEvent}
