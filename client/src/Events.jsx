@@ -1,6 +1,21 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import axios from 'axios';
+import { DragSource } from 'react-dnd';
+import { ItemTypes } from './Constants';
+
+const eventSource = {
+  beginDrag(props) {
+    return {};
+  },
+};
+
+function collect(connect, monitor) {
+  return {
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging(),
+  };
+}
 
 class Events extends React.Component {
   constructor(props) {
@@ -57,8 +72,9 @@ class Events extends React.Component {
     }
   }
   render() {
-    return (
-      <div className="event" onClick={this.dragEvent}>
+    const { connectDragSource, isDragging } = this.props;
+    return connectDragSource(
+      <div className="event" onClick={this.dragEvent} style={{ opacity: isDragging ? 0.5 : 1 }}>
         <div className="eventName">{this.props.event.name}</div>
         <div className="description">{this.props.event.address}</div>
         <div className="vote">{`Votes: ${this.state.votes}`}
@@ -97,6 +113,8 @@ Events.propTypes = {
   day: propTypes.instanceOf(Object).isRequired,
   timelineId: propTypes.string.isRequired,
   getTrip: propTypes.func.isRequired,
+  connectDragSource: propTypes.func.isRequired,
+  isDragging: propTypes.bool.isRequired,
 };
 
-export default Events;
+export default DragSource(ItemTypes.EVENT, eventSource, collect)(Events);
