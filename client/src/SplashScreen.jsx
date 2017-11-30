@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Profile from './Profile';
 import Home from './App';
 
@@ -10,7 +10,7 @@ class SplashScreen extends React.Component {
     this.state = {
       isLoggedIn: false,
       userInfo: null,
-      route: (<Route path='/' component={Home} />),
+      route: (<Route path="/" component={Home} />),
     };
     this.checkAuth = this.checkAuth.bind(this);
   }
@@ -25,17 +25,20 @@ class SplashScreen extends React.Component {
         this.setState({ isLoggedIn: data.isLoggedIn, userInfo: data.user }, () => {
           if (data.isLoggedIn) {
             this.setState({
-              route: (<Route path="/" render={() => (<Profile user={this.state.userInfo} />)} />)
-            })
+              route: (<Route exact path="/" render={() => (<Profile user={this.state.userInfo} />)} />),
+            });
           }
-        })
+        });
       });
   }
 
   render() {
     return (
       <Router>
-        {this.state.route}
+        <Switch>
+          {this.state.route}
+          <Route path="/home" component={Home} />
+        </Switch>
       </Router>
     )
   }

@@ -1,6 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import Home from './App';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -15,7 +16,7 @@ class Profile extends React.Component {
     const { user } = this.props;
     return (
       <div>
-        <button>Go Home</button>
+        <Link to="/home">Make a trip!</Link>
         <img src={user.thumbnail} alt="user-thumbnail" />
         {user.username}
       </div>
