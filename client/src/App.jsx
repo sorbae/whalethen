@@ -160,6 +160,7 @@ class App extends React.Component {
   }
 
   addNewEvent(event, selectedDay) {
+    console.log(event,'this is the event')
     const day = Number(selectedDay);
     axios.post('/entry', {
       event,

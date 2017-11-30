@@ -9,9 +9,9 @@ class MapView extends React.Component {
   }
 
   componentDidMount() {
-    console.log('MAP VIEW MOUNTED', this.props.timelineName)
+    console.log('MAP VIEW MOUNTED', this.props.timelineName);
     axios.get('/address')
-      .then(result => console.log(result,'send and recieved '))
+      .then(result => console.log(result, 'send and recieved '));
   }
 
   render() {
