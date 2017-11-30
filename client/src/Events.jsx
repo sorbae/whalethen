@@ -3,10 +3,17 @@ import propTypes from 'prop-types';
 import axios from 'axios';
 import { DragSource } from 'react-dnd';
 import { ItemTypes } from './Constants';
+import { observe } from './Drop';
 
 const eventSource = {
   beginDrag(props) {
-    return {};
+    const selectedEvent = {
+      event: props.event,
+      day: props.day.day,
+      timelineId: props.timelineId,
+    };
+    observe(selectedEvent);
+    return selectedEvent;
   },
 };
 

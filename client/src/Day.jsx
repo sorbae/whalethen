@@ -2,13 +2,15 @@ import React from 'react';
 import _ from 'lodash';
 import propTypes from 'prop-types';
 import { DropTarget } from 'react-dnd';
+
 import { ItemTypes } from './Constants';
 import Event from './Events';
 import CreateEventBox from './CreateEventBox';
+import { updateEvent } from './Drop';
 
 const eventTarget = {
   drop(props) {
-    console.log(props.day.day);
+    updateEvent(props.day.day, props.getTrip);
     return {};
   },
 };

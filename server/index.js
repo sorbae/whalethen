@@ -39,6 +39,7 @@ app.post('/timeline', ({ body }, response) => {
 });
 
 app.post('/entry', ({ body }, response) => {
+  console.log('this ------> ', body)
   db.addNewEvent(body.event, body.timelineId, body.day)
     .then(() => response.sendStatus(200))
     .tapCatch(err => console.error(err))
