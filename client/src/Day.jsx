@@ -8,7 +8,8 @@ import CreateEventBox from './CreateEventBox';
 
 const eventTarget = {
   drop(props) {
-    moveEvent(props.day);
+    console.log(props.day.day);
+    return {};
   },
 };
 
@@ -53,8 +54,21 @@ const Day = (props) => {
             />)
           }
         </div>
+        {isOver &&
+          <div style={{
+            position: 'absolute',
+            top: 500,
+            left: 500,
+            height: '300px',
+            width: '600px',
+            zIndex: 1,
+            opacity: 0.5,
+            backgroundColor: 'blue',
+            }}
+        />
+      }
       </div>
-    </div>
+    </div>,
   );
 };
 
@@ -62,6 +76,8 @@ const Day = (props) => {
 Day.propTypes = {
   day: propTypes.instanceOf(Object).isRequired,
   timelineId: propTypes.string.isRequired,
+  connectDropTarget: propTypes.func.isRequired,
+  isOver: propTypes.bool.isRequired,
 };
 
-export default Day;
+export default DropTarget(ItemTypes.EVENT, eventTarget, collect)(Day);

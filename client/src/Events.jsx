@@ -22,14 +22,10 @@ class Events extends React.Component {
     super(props);
     this.state = {
       votes: this.props.event.votes,
-      canHasDrag: true,
     };
     this.updateVotes = this.updateVotes.bind(this);
     this.patchVotesInDB = this.patchVotesInDB.bind(this);
     this.removeEvent = this.removeEvent.bind(this);
-    this.preventDrag = this.preventDrag.bind(this);
-    this.enableDrag = this.enableDrag.bind(this);
-    this.dragEvent = this.dragEvent.bind(this);
   }
   patchVotesInDB() {
     axios.put('/entry', {
@@ -38,21 +34,6 @@ class Events extends React.Component {
       eventId: this.props.event._id,
       votes: this.state.votes,
     });
-  }
-  preventDrag() {
-    this.setState({
-      canHasDrag: false,
-    });
-  }
-  enableDrag() {
-    this.setState({
-      canHasDrag: true,
-    });
-  }
-  dragEvent() {
-    if (this.state.canHasDrag) {
-      console.log('event clicked');
-    }
   }
   removeEvent(e) {
     const eventId = e.target.value;
@@ -74,7 +55,7 @@ class Events extends React.Component {
   render() {
     const { connectDragSource, isDragging } = this.props;
     return connectDragSource(
-      <div className="event" onClick={this.dragEvent} style={{ opacity: isDragging ? 0.5 : 1 }}>
+      <div className="event" style={{ opacity: isDragging ? 0.5 : 1 }}>
         <div className="eventName">{this.props.event.name}</div>
         <div className="description">{this.props.event.address}</div>
         <div className="vote">{`Votes: ${this.state.votes}`}
@@ -82,24 +63,18 @@ class Events extends React.Component {
             className="votes"
             value="-"
             onClick={this.updateVotes}
-            onMouseEnter={this.preventDrag}
-            onMouseLeave={this.enableDrag}
           >-
           </button>
           <button
             className="votes"
             value="+"
             onClick={this.updateVotes}
-            onMouseEnter={this.preventDrag}
-            onMouseLeave={this.enableDrag}
           >+
           </button>
           <button
             className="removeButton"
             onClick={this.removeEvent}
             value={this.props.event._id}
-            onMouseEnter={this.preventDrag}
-            onMouseLeave={this.enableDrag}
           >x
           </button>
         </div>
