@@ -10,7 +10,7 @@ class SplashScreen extends React.Component {
     this.state = {
       isLoggedIn: false,
       userInfo: null,
-      route: (<Route path="/" component={Home} />),
+      route: (<Route exact path="/" component={Home} />),
     };
     this.checkAuth = this.checkAuth.bind(this);
   }
@@ -20,7 +20,7 @@ class SplashScreen extends React.Component {
   }
 
   checkAuth() {
-    axios.get('/checkAuth')
+    axios.get('/auth/checkAuth')
       .then(({ data }) => {
         this.setState({ isLoggedIn: data.isLoggedIn, userInfo: data.user }, () => {
           if (data.isLoggedIn) {
@@ -37,7 +37,7 @@ class SplashScreen extends React.Component {
       <Router>
         <Switch>
           {this.state.route}
-          <Route path="/home" component={Home} />
+          <Route exact path="/home" component={Home} />
         </Switch>
       </Router>
     )

@@ -107,7 +107,6 @@ const handleUser = (profile, done) => {
   User.findOne({ googleId: profile.id })
     .then((currentUser) => {
       if (currentUser) {
-        console.log('hi', currentUser);
         done(null, currentUser)
       } else {
         createUser(profile, done);
