@@ -34,7 +34,7 @@ const daySchema = mongoose.Schema({
 const userSchema = mongoose.Schema({
   googleId: String,
   username: String,
-  picture: String,
+  thumbnail: String,
   schedules: [], // what will be in this array?
 });
 
@@ -86,7 +86,7 @@ const createUser = (profile, done) => {
   new User({
     username: profile.displayName,
     googleId: profile.id,
-    picture: profile.photos[0].value,
+    thumbnail: profile.photos[0].value,
     schedules: [],
   })
     .save()
@@ -107,7 +107,6 @@ const handleUser = (profile, done) => {
       }
     });
 };
-
 
 module.exports.getTimelineById = getTimelineById;
 module.exports.getTimelineByName = getTimelineByName;

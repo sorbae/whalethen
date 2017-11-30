@@ -7,6 +7,7 @@ const passportSetup = require('../auth/config');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const cookieSession = require('cookie-session');
+const history = require('connect-history-api-fallback');
 const api = require('./placesApi.js');
 const db = require('../database/');
 const config = require('../webpack.config.js');
@@ -15,6 +16,7 @@ require('dotenv').config();
 const app = express();
 const compiler = webpack(config);
 
+app.use(history());
 app.use(webpackDevMiddleware(compiler, {
   noInfo: true,
   publicPath: config.output.publicPath,
@@ -77,17 +79,25 @@ app.get('/search', (request, response) => {
     .catch(() => response.sendStatus(409));
 });
 
-app.get('/authenticate', passport.authenticate('google', {
+app.get('/signin', passport.authenticate('google', {
   scope: ['profile'],
 }));
 
 app.get('/auth/google/redirect', passport.authenticate('google'), (req, res) => {
-  res.redirect('/profile');
+  res.redirect('/');
 });
 
 app.get('/logout', (req, res) => {
   req.logout();
   res.redirect('/');
+});
+
+app.get('/checkAuth', (req, res) => {
+  if (req.user) {
+    res.send({ isLoggedIn: true, user: req.user });
+  } else {
+    res.send({ isLoggedIn: false });
+  }
 });
 
 const port = process.env.PORT;
