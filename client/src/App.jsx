@@ -167,7 +167,6 @@ class App extends React.Component {
     return (
       <div className="App">
         <nav>
-          <div className="title">Whale Then..</div>
           {this.state.isLoggedIn ? (
             <div className="nav-links">
               <Link to="/profile">{this.state.userInfo.username}</Link>
@@ -178,6 +177,7 @@ class App extends React.Component {
               <a href="/auth/login">Login</a>
             </div>
           )}
+          <div className="title">Whale Then..</div>
         </nav>
         <div className="container timelineParams">
           <TimelineInputBox onInput={this.onInputChange} onEnter={this.onEnter} />
