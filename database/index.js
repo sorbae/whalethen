@@ -22,6 +22,7 @@ const eventSchema = mongoose.Schema({
   address: String,
   rating: String,
   votes: { type: Number, default: 0 },
+  latLong: { lat: String, lng: String },
 });
 
 const daySchema = mongoose.Schema({
@@ -85,7 +86,8 @@ const getTimelineById = timelineId => (
 );
 
 const getEventAddress = (timelineId) => {
-
+  return Day.find({ timelineId });
+  //Day.find({timelineId:})
 };
 
 const getTimelineByName = timelineName => Day.findAsync({ timelineName });
@@ -163,3 +165,5 @@ module.exports.User = User;
 module.exports.handleUser = handleUser;
 module.exports.getComments = getComments;
 module.exports.createComment = createComment;
+module.exports.getEventAddress = getEventAddress;
+

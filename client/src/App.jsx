@@ -192,11 +192,12 @@ class App extends React.Component {
           handleNewEvent={this.handleNewEvent}
           handleNewAddress={this.handleNewAddress}
           createEvent={this.createEvent}
+          getTrip={this.getTrip}
         />);
     } else if (this.state.view === 'mapview') {
       return (
         <MapView
-          timelineName={this.state.timelineId}
+          timelineId={this.state.timelineId}
         />);
     }
   }

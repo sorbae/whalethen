@@ -24,7 +24,7 @@ const formatPlaces = ({ results }) => {
       name: place.name,
       rating: place.rating,
       address: place.vicinity,
-      latLong: place.geometry.location
+      latLong: place.geometry.location,
     };
   });
 };

@@ -44,8 +44,10 @@ app.get('/timeline/:timelineName/:timelineId', (request, response) => {
     .catch(() => response.status(409).end());
 });
 
-app.get('/address', (request, response) => {
-  response.send('axios?');
+app.get('/address/:id', (request, response) => {
+  console.log(request.params.id, 'this is request');
+  db.getEventAddress(request.params.id)
+    .then(result => response.send(result));
 });
 
 app.post('/timeline', ({ body }, response) => {
