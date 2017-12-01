@@ -4,6 +4,7 @@ const cors = require('cors');
 const webpack = require('webpack');
 const passport = require('passport');
 const passportSetup = require('../auth/config');
+const authRoutes = require('../routes/auth-routes');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const cookieSession = require('cookie-session');
@@ -16,22 +17,23 @@ require('dotenv').config();
 const app = express();
 const compiler = webpack(config);
 
-app.use(history());
 app.use(webpackDevMiddleware(compiler, {
   noInfo: true,
   publicPath: config.output.publicPath,
 }));
 app.use(webpackHotMiddleware(compiler));
 app.use(cors());
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(express.static(`${__dirname}/../client/`));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieSession({
   maxAge: 24 * 60 * 60 * 1000,
   keys: [process.env.COOKIEKEY],
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use('/auth', authRoutes);
+app.use(history());
+app.use(express.static(`${__dirname}/../client/`));
 
 app.options('/', (request, response) => response.json('GET,POST,PUT,GET,DELETE'));
 
@@ -79,27 +81,6 @@ app.get('/search', (request, response) => {
     })
     .tapCatch(err => console.error(err))
     .catch(() => response.sendStatus(409));
-});
-
-app.get('/signin', passport.authenticate('google', {
-  scope: ['profile'],
-}));
-
-app.get('/auth/google/redirect', passport.authenticate('google'), (req, res) => {
-  res.redirect('/');
-});
-
-app.get('/logout', (req, res) => {
-  req.logout();
-  res.redirect('/');
-});
-
-app.get('/checkAuth', (req, res) => {
-  if (req.user) {
-    res.send({ isLoggedIn: true, user: req.user });
-  } else {
-    res.send({ isLoggedIn: false });
-  }
 });
 
 const port = process.env.PORT;

@@ -4,7 +4,7 @@ import moment from 'moment';
 import shortid from 'shortid';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-
+import { Link } from 'react-router-dom';
 import Search from './Search';
 import Timeline from './Timeline';
 import TimelineInputBox from './TimelineInputBox';
@@ -15,6 +15,8 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
+      isLoggedIn: false,
+      userInfo: null,
       timelineData: [],
       timelineName: '', // temp until we get some more data built up
       startDate: '',
@@ -26,6 +28,7 @@ class App extends React.Component {
       today: '',
     };
 
+    this.checkAuth = this.checkAuth.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
     this.onEnter = this.onEnter.bind(this);
     this.addNewEvent = this.addNewEvent.bind(this);
@@ -43,6 +46,7 @@ class App extends React.Component {
     // on init function to make get request to server
     // temp using 1234 as the timelineId and test as timelineName
     // this.getTrip();
+    this.checkAuth();
     this.setDate();
   }
 
@@ -107,6 +111,13 @@ class App extends React.Component {
       .catch(err => console.error(err));
   }
 
+  checkAuth() {
+    axios.get('/auth/checkAuth')
+      .then(({ data }) => {
+        this.setState({ isLoggedIn: data.isLoggedIn, userInfo: data.user });
+      });
+  }
+
   handleID(e) {
     this.setState({
       timelineId: e.target.value,
@@ -155,6 +166,16 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
+        {this.state.isLoggedIn ? (
+          <div className="nav-links">
+            <Link to="/profile">{this.state.userInfo.username}</Link>
+            <a href="/auth/logout">Logout</a>
+          </div>
+        ) : (
+          <div className="nav-links">
+            <a href="/auth/login">Login</a>
+          </div>
+        )}
         <div className="title">Whale Then..</div>
         <div className="container timelineParams">
           <TimelineInputBox onInput={this.onInputChange} onEnter={this.onEnter} />

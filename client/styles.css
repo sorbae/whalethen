@@ -8,9 +8,10 @@ body {
 .App {
   display: grid;
   grid-template-columns: 4fr 1fr;
-  grid-template-rows: 5% 20% auto;
+  grid-template-rows: 5% 15% 20% auto;
   grid-template-areas:
     "navbar navbar"
+    "title title"
     "createTimeline search"
     "timeline search";
 }
@@ -27,12 +28,28 @@ body {
 }
 
 /***** Navbar *****/
-.title {
+.nav-links {
   grid-area: navbar;
+  margin: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.nav-links img {
+  border-radius: 50%;
+  height: 40px;
+}
+
+.title {
+  grid-area: title;
   text-align: center;
-  font-size: 45pt;
+  font-size: 4rem;
   font-weight: bold;
   font-family: 'Comfortaa', cursive;
+}
+
+a {
+  padding: 10px;
 }
 
 /***** Event Days ****/
