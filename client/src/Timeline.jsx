@@ -2,6 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import propTypes from 'prop-types';
 import DayView from './Day';
+import CalendarView from './CalendarView';
 
 const Timeline = (props) => {
   const {
@@ -20,6 +21,7 @@ const Timeline = (props) => {
     <div className="container timeline">
       <div>{timelineName}</div>
       <div className="container day">
+      <CalendarView />
         {_.map(timelineData, (day, index) => (
           <DayView
             timelineId={timelineId}

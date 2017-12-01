@@ -202,12 +202,14 @@ class App extends React.Component {
   }
 
   render() {
+    
     let buttonName;
     if (this.state.view === 'default') {
       buttonName = 'Map View';
     } else {
       buttonName = 'Day View';
     }
+
     return (
       <div className="App">
         {this.state.isLoggedIn ? (
