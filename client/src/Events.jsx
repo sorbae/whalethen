@@ -29,6 +29,7 @@ class Events extends React.Component {
     super(props);
     this.state = {
       votes: this.props.event.votes,
+      origin: this.props.event.votes,
     };
     this.updateVotes = this.updateVotes.bind(this);
     this.patchVotesInDB = this.patchVotesInDB.bind(this);
@@ -49,11 +50,11 @@ class Events extends React.Component {
       .catch(err => console.log(err));
   }
   updateVotes(e) {
-    if (e.target.value === '+') {
+    if (e.target.value === '+' && this.state.votes <= this.state.origin) {
       this.setState({
         votes: this.state.votes += 1,
       }, this.patchVotesInDB);
-    } else {
+    } else if (e.target.value === '-' && this.state.votes >= this.state.origin) {
       this.setState({
         votes: this.state.votes -= 1,
       }, this.patchVotesInDB);
