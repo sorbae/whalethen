@@ -166,19 +166,17 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <nav>
-          {this.state.isLoggedIn ? (
-            <div className="nav-links">
-              <Link to="/profile">{this.state.userInfo.username}</Link>
-              <a href="/auth/logout">Logout</a>
-            </div>
-          ) : (
-            <div className="nav-links">
-              <a href="/auth/login">Login</a>
-            </div>
-          )}
-          <div className="title">Whale Then..</div>
-        </nav>
+        {this.state.isLoggedIn ? (
+          <div className="nav-links">
+            <Link to="/profile">{this.state.userInfo.username}</Link>
+            <a href="/auth/logout">Logout</a>
+          </div>
+        ) : (
+          <div className="nav-links">
+            <a href="/auth/login">Login</a>
+          </div>
+        )}
+        <div className="title">Whale Then..</div>
         <div className="container timelineParams">
           <TimelineInputBox onInput={this.onInputChange} onEnter={this.onEnter} />
           <StartDateBox

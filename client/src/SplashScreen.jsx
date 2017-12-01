@@ -31,6 +31,7 @@ class SplashScreen extends React.Component {
         });
       });
   }
+  // <Route exact path="/profile" render={() => (<Profile user={this.state.userInfo} />)} />
 
   render() {
     return (
@@ -38,7 +39,7 @@ class SplashScreen extends React.Component {
         <Switch>
           {this.state.route}
           <Route exact path="/home" component={Home} />
-          <Route exact path="/profile" render={() => (<Profile user={this.state.userInfo} />)} />
+          <Route exact path="/profile" component={Profile} />
         </Switch>
       </Router>
     )
