@@ -83,6 +83,12 @@ app.get('/search', (request, response) => {
     .catch(() => response.sendStatus(409));
 });
 
+app.get('/comments/:timelineId/:day/:eventId', (request, response) => {
+  db.getComments(request.params.timelineId, request.params.day, request.params.eventId)
+    .then(comments => response.json(comments))
+    .catch(err => console.log())
+});
+
 const port = process.env.PORT;
 
 app.listen(port, () => {
