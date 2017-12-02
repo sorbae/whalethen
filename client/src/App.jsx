@@ -160,7 +160,6 @@ class App extends React.Component {
   }
 
   addNewEvent(event, selectedDay) {
-    console.log(event,'this is the event')
     const day = Number(selectedDay);
     axios.post('/entry', {
       event,
@@ -238,6 +237,7 @@ class App extends React.Component {
           <button className="scheduleSubmit" onClick={() => this.onSubmit()}>New Schedule</button>
           <button className="scheduleSubmit" onClick={() => this.onToggleView()}>{buttonName}</button>
         </div>
+        <div>{this.renderView()}</div>
         <div>
           <TimelineLookup
             handleId={this.handleId}
@@ -246,7 +246,6 @@ class App extends React.Component {
             onLookupEnter={this.onLookupEnter}
           />
         </div>
-        <div>{this.renderView()}</div>
         <Search
           numberOfDays={this.state.numberOfDays}
           addNewEvent={this.addNewEvent}

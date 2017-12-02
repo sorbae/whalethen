@@ -87,7 +87,6 @@ const getTimelineById = timelineId => (
 
 const getEventAddress = (timelineId) => {
   return Day.find({ timelineId });
-  //Day.find({timelineId:})
 };
 
 const getTimelineByName = timelineName => Day.findAsync({ timelineName });
