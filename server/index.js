@@ -83,6 +83,19 @@ app.get('/search', (request, response) => {
     .catch(() => response.sendStatus(409));
 });
 
+app.get('/comments/:timelineId/:day/:eventId', (request, response) => {
+  const { timelineId, day, eventId } = request.params;
+  db.getComments(timelineId, day, eventId)
+    .then((comments) => comments ? response.send(comments) : response.sendStatus(404))
+    .catch(err => console.log('Error fetching from database', err));
+});
+
+app.post('/newComment', (request, response) => {
+  const { day, timelineId, eventId, username, text } = request.body;
+  db.createComment(day, timelineId, eventId, username, text)
+    .then(() => response.sendStatus(201));
+});
+
 const port = process.env.PORT;
 
 app.listen(port, () => {

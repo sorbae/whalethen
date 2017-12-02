@@ -4,6 +4,7 @@ import axios from 'axios';
 import { DragSource } from 'react-dnd';
 import { ItemTypes } from './Constants';
 import { observe } from './Drop';
+import CommentBox from './CommentBox';
 
 const eventSource = {
   beginDrag({ event, day, timelineId }, monitor, component) {
@@ -30,11 +31,14 @@ class Events extends React.Component {
     super(props);
     this.state = {
       votes: this.props.event.votes,
+      commentView: false,
+      numComments: 0,
       origin: this.props.event.votes,
     };
     this.updateVotes = this.updateVotes.bind(this);
     this.patchVotesInDB = this.patchVotesInDB.bind(this);
     this.removeEvent = this.removeEvent.bind(this);
+    this.incrementNumComments = this.incrementNumComments.bind(this);
   }
   patchVotesInDB() {
     axios.put('/entry', {
@@ -61,8 +65,20 @@ class Events extends React.Component {
       }, this.patchVotesInDB);
     }
   }
+  incrementNumComments() {
+    this.setState({ numComments: this.state.numComments + 1 });
+  }
   render() {
     const { connectDragSource, isDragging } = this.props;
+    const commentBox =
+      (<CommentBox
+        timelineId={this.props.timelineId}
+        day={this.props.day}
+        event={this.props.event}
+        user={this.props.user}
+        increment={this.incrementNumComments}
+      />);
+
     return connectDragSource(
       <div className="event" style={{ opacity: isDragging ? 0.5 : 1 }}>
         <div className="eventName">{this.props.event.name}</div>
@@ -71,6 +87,11 @@ class Events extends React.Component {
           <button className="votes" value="-" onClick={this.updateVotes}>-</button>
           <button className="votes" value="+" onClick={this.updateVotes}>+</button>
           <button className="removeButton" onClick={this.removeEvent} value={this.props.event._id}>x</button>
+          <button onClick={() => this.setState({ commentView: !this.state.commentView })} className="comments"> 
+            Comments
+            {this.state.numComments > 0 && <span className="numComments">{this.state.numComments}</span>}
+          </button>
+          {this.state.commentView && commentBox}
         </div>
       </div>,
     );
@@ -84,6 +105,7 @@ Events.propTypes = {
   getTrip: propTypes.func.isRequired,
   connectDragSource: propTypes.func.isRequired,
   isDragging: propTypes.bool.isRequired,
+  user: propTypes.instanceOf(Object).isRequired
 };
 
 export default DragSource(ItemTypes.EVENT, eventSource, collect)(Events);

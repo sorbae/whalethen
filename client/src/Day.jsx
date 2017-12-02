@@ -33,6 +33,7 @@ const Day = (props) => {
     handleNewAddress,
     createEvent,
     getTrip,
+    user,
   } = props;
 
   return connectDropTarget(
@@ -53,6 +54,7 @@ const Day = (props) => {
               event={event}
               key={index}
               getTrip={getTrip}
+              user={user}
             />)
           }
           {isOver &&

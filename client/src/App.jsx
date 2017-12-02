@@ -201,6 +201,7 @@ class App extends React.Component {
           handleNewAddress={this.handleNewAddress}
           createEvent={this.createEvent}
           getTrip={this.getTrip}
+          user={this.state.userInfo}
         />
         <Search
           numberOfDays={this.state.numberOfDays}

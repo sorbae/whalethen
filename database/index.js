@@ -31,6 +31,14 @@ const daySchema = mongoose.Schema({
   events: [eventSchema],
 });
 
+const commentSchema = mongoose.Schema({
+  day: Number,
+  timelineId: String,
+  eventId: String,
+  username: String,
+  text: String,
+});
+
 // const tripSchema = mongoose.Schema({
 //   tripId: '',
 //   tripName: '',
@@ -48,6 +56,7 @@ const userSchema = mongoose.Schema({
 const Day = mongoose.model('Day', daySchema);
 const Event = mongoose.model('Event', eventSchema);
 const User = mongoose.model('User', userSchema);
+const Comment = mongoose.model('Comment', commentSchema);
 
 const updateVotes = (timelineId, day, eventId, votes) => (
   Day.findAsync({
@@ -110,11 +119,29 @@ const createUser = (profile, done) => {
     });
 };
 
+const createComment = (day, timelineId, eventId, username, text) => (
+  new Comment({
+    day,
+    timelineId,
+    eventId,
+    username,
+    text,
+  }).save()
+);
+
+const getComments = (timelineId, day, eventId) => (
+  Comment
+    .find()
+    .where('timelineId').equals(timelineId)
+    .where('day').equals(day)
+    .where('eventId').equals(eventId)
+);
+
 const handleUser = (profile, done) => {
   User.findOne({ googleId: profile.id })
     .then((currentUser) => {
       if (currentUser) {
-        done(null, currentUser)
+        done(null, currentUser);
       } else {
         createUser(profile, done);
       }
@@ -130,3 +157,5 @@ module.exports.removeEventFromDay = removeEventFromDay;
 module.exports.updateVotes = updateVotes;
 module.exports.User = User;
 module.exports.handleUser = handleUser;
+module.exports.getComments = getComments;
+module.exports.createComment = createComment;

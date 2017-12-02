@@ -189,6 +189,18 @@ a {
   font-size: 1.1em;
 }
 
+.comment {
+  font-size: .9rem;
+}
+
+.commentUsername {
+  font-weight: bold;
+}
+
+.numComments {
+  padding-left: 5px;
+}
+
 button {
   border-radius: 2px;
   font-size: 16px;
