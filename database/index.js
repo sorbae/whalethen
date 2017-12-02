@@ -31,12 +31,19 @@ const daySchema = mongoose.Schema({
   events: [eventSchema],
 });
 
+// const tripSchema = mongoose.Schema({
+//   tripId: '',
+//   tripName: '',
+//   trip: [daySchema],
+// });
+
 const userSchema = mongoose.Schema({
   googleId: String,
   username: String,
   thumbnail: String,
-  schedules: [], // what will be in this array?
+  // Trips: [tripSchema], // what will be in this array?
 });
+
 
 const Day = mongoose.model('Day', daySchema);
 const Event = mongoose.model('Event', eventSchema);

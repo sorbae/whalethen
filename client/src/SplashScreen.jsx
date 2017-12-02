@@ -31,7 +31,6 @@ class SplashScreen extends React.Component {
         });
       });
   }
-  // <Route exact path="/profile" render={() => (<Profile user={this.state.userInfo} />)} />
 
   render() {
     return (

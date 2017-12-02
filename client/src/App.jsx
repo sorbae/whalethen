@@ -168,6 +168,7 @@ class App extends React.Component {
       <div className="App">
         {this.state.isLoggedIn ? (
           <div className="nav-links">
+            <img src={this.state.userInfo.thumbnail} alt="user-thumbnail" />
             <Link to="/profile">{this.state.userInfo.username}</Link>
             <a href="/auth/logout">Logout</a>
           </div>
