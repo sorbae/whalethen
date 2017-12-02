@@ -31,6 +31,7 @@ class App extends React.Component {
       newEventAddress: '',
       today: '',
       view: 'default',
+      calendar: false,
     };
 
     this.checkAuth = this.checkAuth.bind(this);
@@ -40,11 +41,12 @@ class App extends React.Component {
     this.getTrip = this.getTrip.bind(this);
     this.handleId = this.handleId.bind(this);
     this.handleName = this.handleName.bind(this);
-    this.onLookupEnter = this.onLookupEnter.bind(this);
+    // this.onLookupEnter = this.onLookupEnter.bind(this);
     this.onCreateEnter = this.onCreateEnter.bind(this);
     this.handleNewEvent = this.handleNewEvent.bind(this);
     this.handleNewAddress = this.handleNewAddress.bind(this);
     this.createEvent = this.createEvent.bind(this);
+    this.showCalendar = this.showCalendar.bind(this);
   }
 
   componentDidMount() {
@@ -171,6 +173,12 @@ class App extends React.Component {
       .catch(err => console.error('add event error: ', err));
   }
 
+  showCalendar() {
+    this.setState({
+      calendar: !this.state.calendar,
+    });
+  }
+
   createEvent(day) {
     const eventObj = {
       name: this.state.newEvent,
@@ -202,13 +210,14 @@ class App extends React.Component {
   }
 
   render() {
-    
     let buttonName;
     if (this.state.view === 'default') {
       buttonName = 'Map View';
     } else {
       buttonName = 'Day View';
     }
+
+    const timelineView = this.state.calendar ? 'Day to Day' : 'Calendar';
 
     return (
       <div className="App">
@@ -238,6 +247,7 @@ class App extends React.Component {
           />
           <button className="scheduleSubmit" onClick={() => this.onSubmit()}>New Schedule</button>
           <button className="scheduleSubmit" onClick={() => this.onToggleView()}>{buttonName}</button>
+          {this.state.timelineId && <button className="scheduleSubmit" onClick={() => this.showCalendar()}>{timelineView}</button>}
         </div>
         <div>{this.renderView()}</div>
         <div>
