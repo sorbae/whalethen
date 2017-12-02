@@ -84,22 +84,17 @@ app.get('/search', (request, response) => {
 });
 
 app.get('/comments/:timelineId/:day/:eventId', (request, response) => {
-  console.log('GET EVENT ID', request.params.eventId)
-  db.getComments(request.params.timelineId, request.params.day, request.params.eventId)
-    .then(comments => comments ? response.send(comments) : response.sendStatus(404))
-    .catch(err => console.log('Error fetching from database', err))
+  const { timelineId, day, eventId } = request.params;
+  db.getComments(timelineId, day, eventId)
+    .then((comments) => comments ? response.send(comments) : response.sendStatus(404))
+    .catch(err => console.log('Error fetching from database', err));
 });
 
 app.post('/newComment', (request, response) => {
-  const day = request.body.day;
-  const timelineId = request.body.timelineId;
-  const eventId = request.body.eventId;
-  const username = request.body.username;
-  const text = request.body.text;
-  console.log('POST EVENT ID', eventId)
+  const { day, timelineId, eventId, username, text } = request.body;
   db.createComment(day, timelineId, eventId, username, text)
-    .then(() => response.sendStatus(201))
-})
+    .then(() => response.sendStatus(201));
+});
 
 const port = process.env.PORT;
 

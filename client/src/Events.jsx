@@ -63,17 +63,6 @@ class Events extends React.Component {
     }
   }
 
-  addComment(e) {
-    const options = {
-      eventId: this.props.event._id,
-      timelineId: this.props.timelineId,
-      day: this.props.day.day,
-      username: this.props.user.username,
-      text: e.target.value
-    }
-    axios.post('/newcomment',)
-  }
-
   render() {
     const { connectDragSource, isDragging } = this.props;
     const commentBox =
@@ -92,11 +81,9 @@ class Events extends React.Component {
           <button className="votes" value="-" onClick={this.updateVotes}>-</button>
           <button className="votes" value="+" onClick={this.updateVotes}>+</button>
           <button className="removeButton" onClick={this.removeEvent} value={this.props.event._id}>x</button>
-          <button onClick={() => this.setState({ commentView: !this.state.commentView })}
-            className="comments"> 
+          <button onClick={() => this.setState({ commentView: !this.state.commentView })} className="comments"> 
             Comments
-            <span className="numComments">{this.state.numComments > 0 && this.state.numComments}
-            </span>
+            <span className="numComments">{this.state.numComments > 0 && this.state.numComments}</span>
           </button>
           {this.state.commentView && commentBox}
         </div>

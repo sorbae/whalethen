@@ -2,13 +2,14 @@ import React from 'react';
 import propTypes from 'prop-types';
 
 const CommentEntry = ({ comment }) => (
-  <div className="commentEntry">
-    {`${comment.username}: ${comment.text}`}
+  <div className="comment">
+    <span className="commentUsername">{comment.username}</span>
+    <span className="commentText">: {comment.text}</span>
   </div>
 );
 
 CommentEntry.propTypes = {
-  comment: propTypes.string,
+  comment: propTypes.object.isRequired,
 };
 
 export default CommentEntry;

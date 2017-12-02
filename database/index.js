@@ -114,17 +114,17 @@ const createUser = (profile, done) => {
 
 const createComment = (day, timelineId, eventId, username, text) => (
   new Comment({
-    day: day,
-    timelineId: timelineId,
-    eventId: eventId,
-    username: username,
-    text: text
+    day,
+    timelineId,
+    eventId,
+    username,
+    text,
   }).save()
 );
 
 const getComments = (timelineId, day, eventId) => (
-  Comment.
-    find()
+  Comment
+    .find()
     .where('timelineId').equals(timelineId)
     .where('day').equals(day)
     .where('eventId').equals(eventId)
@@ -134,7 +134,7 @@ const handleUser = (profile, done) => {
   User.findOne({ googleId: profile.id })
     .then((currentUser) => {
       if (currentUser) {
-        done(null, currentUser)
+        done(null, currentUser);
       } else {
         createUser(profile, done);
       }

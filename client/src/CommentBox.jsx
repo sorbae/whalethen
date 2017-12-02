@@ -18,31 +18,34 @@ class CommentBox extends React.Component {
     this.getComments();
   }
 
-  getComments () {
-    const eventId = this.props.event._id;
-    const timelineId = this.props.timelineId;
-    const day = this.props.day.day;
-    axios.get(`/comments/${timelineId}/${day}/${eventId}`)
-      .then(comments => {
-        if (this.state.comments !== comments) { 
-          this.setState({ comments: comments.data })
-         }
+  getComments() {
+    const { event, timelineId, day } = this.props;
+    axios.get(`/comments/${timelineId}/${day.day}/${event._id}`)
+      .then((comments) => {
+        if (this.state.comments !== comments) {
+          this.setState({ comments: comments.data });
+        }
       })
-      .catch(err => console.error('Error retrieving comments:', err))
+      .catch(err => console.error('Error retrieving comments:', err));
   }
 
   addComment(e) {
     if (e.key === 'Enter') {
-      const options = {
-        eventId: this.props.event._id,
-        timelineId: this.props.timelineId,
-        day: this.props.day.day,
-        username: this.props.user.username,
-        text: e.target.value,
+      if (this.props.user) {
+        const options = {
+          eventId: this.props.event._id,
+          timelineId: this.props.timelineId,
+          day: this.props.day.day,
+          username: this.props.user.username,
+          text: e.target.value,
+        };
+        e.target.value = '';
+        axios.post('/newComment', options)
+          .then(() => this.getComments())
+          .catch(err => console.error('Error creating a comment: ', err));
+      } else {
+        e.target.value = 'Login to comment';
       }
-      axios.post('/newComment', options)
-        .then(() => this.getComments())
-        .catch(err => console.error('Error creating a comment: ', err))
     }
   }
 
@@ -50,12 +53,16 @@ class CommentBox extends React.Component {
     return (
       <div>
         <CommentList comments={this.state.comments} />
-        <CommentForm submitComment={this.addComment}/>
+        <CommentForm submitComment={this.addComment} />
       </div>);
   }
 }
 
 CommentBox.propTypes = {
+  user: propTypes.object,
+  event: propTypes.object,
+  timelineId: propTypes.string,
+  day: propTypes.object
 };
 
 export default CommentBox;
