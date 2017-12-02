@@ -109,7 +109,7 @@ class App extends React.Component {
     }
   }
 
-  // setDate() {
+  setDate() {
     let today = moment().format('L').split('/');
     today = `${today[2]}-${today[0]}-${today[1]}`;
     this.setState({
