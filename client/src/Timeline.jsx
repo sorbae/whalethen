@@ -13,6 +13,7 @@ const Timeline = (props) => {
     handleNewAddress,
     createEvent,
     getTrip,
+    user,
   } = props;
 
   return (
@@ -29,6 +30,7 @@ const Timeline = (props) => {
             handleNewAddress={handleNewAddress}
             createEvent={createEvent}
             getTrip={getTrip}
+            user={user}
           />
         ))}
       </div>

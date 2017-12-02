@@ -34,6 +34,7 @@ const daySchema = mongoose.Schema({
 const commentSchema = mongoose.Schema({
   day: Number,
   timelineId: String,
+  eventId: String,
   username: String,
   text: String,
 });
@@ -111,7 +112,7 @@ const createUser = (profile, done) => {
     });
 };
 
-const createComment = (day, timelineId, eventId, username, text) => {
+const createComment = (day, timelineId, eventId, username, text) => (
   new Comment({
     day: day,
     timelineId: timelineId,
@@ -119,15 +120,15 @@ const createComment = (day, timelineId, eventId, username, text) => {
     username: username,
     text: text
   }).save()
-};
+);
 
-const getComments = (timelineId, day, eventId) => {
+const getComments = (timelineId, day, eventId) => (
   Comment.
     find()
     .where('timelineId').equals(timelineId)
     .where('day').equals(day)
     .where('eventId').equals(eventId)
-};
+);
 
 const handleUser = (profile, done) => {
   User.findOne({ googleId: profile.id })
@@ -150,3 +151,4 @@ module.exports.updateVotes = updateVotes;
 module.exports.User = User;
 module.exports.handleUser = handleUser;
 module.exports.getComments = getComments;
+module.exports.createComment = createComment;

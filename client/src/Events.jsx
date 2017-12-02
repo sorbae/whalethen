@@ -31,12 +31,11 @@ class Events extends React.Component {
     this.state = {
       votes: this.props.event.votes,
       commentView: false,
-      numComments: 0;    
+      numComments: 0    
     };
     this.updateVotes = this.updateVotes.bind(this);
     this.patchVotesInDB = this.patchVotesInDB.bind(this);
     this.removeEvent = this.removeEvent.bind(this);
-    this.getComments = this.getComments.bind(this);
   }
   patchVotesInDB() {
     axios.put('/entry', {
@@ -64,22 +63,27 @@ class Events extends React.Component {
     }
   }
 
-  getComments () {
-    const eventId = this.props.event._id;
-    const timelineId = this.props.timelineId;
-    const day = this.props.day.day;
-    this.setState({ commentView: !this.state.commentView}, () => {
-      if (numComments > 0)
-    })
-    axios.get(`/comments/${this.props.timelineId}/${this.props.day.day}/${eventId}`)
-    .then(comments => console.log('Comments:', comments))
-      // .then(comments => this.setState({ comments: comments }))
-    //   .catch(err => console.error('Error retrieving comments:', err))
+  addComment(e) {
+    const options = {
+      eventId: this.props.event._id,
+      timelineId: this.props.timelineId,
+      day: this.props.day.day,
+      username: this.props.user.username,
+      text: e.target.value
+    }
+    axios.post('/newcomment',)
   }
 
   render() {
     const { connectDragSource, isDragging } = this.props;
-    const commentBox = <CommentBox />
+    const commentBox =
+      (<CommentBox
+        timelineId={this.props.timelineId}
+        day={this.props.day}
+        event={this.props.event}
+        user={this.props.user}
+      />);
+
     return connectDragSource(
       <div className="event" style={{ opacity: isDragging ? 0.5 : 1 }}>
         <div className="eventName">{this.props.event.name}</div>
@@ -88,10 +92,12 @@ class Events extends React.Component {
           <button className="votes" value="-" onClick={this.updateVotes}>-</button>
           <button className="votes" value="+" onClick={this.updateVotes}>+</button>
           <button className="removeButton" onClick={this.removeEvent} value={this.props.event._id}>x</button>
-          <button onClick={this.getComments} className="comments">
+          <button onClick={() => this.setState({ commentView: !this.state.commentView })}
+            className="comments"> 
             Comments
             <span className="numComments">{this.state.numComments > 0 && this.state.numComments}
-            </span></button>
+            </span>
+          </button>
           {this.state.commentView && commentBox}
         </div>
       </div>,
