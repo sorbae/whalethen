@@ -40,6 +40,7 @@ class CommentBox extends React.Component {
           text: e.target.value,
         };
         e.target.value = '';
+        this.props.increment();
         axios.post('/newComment', options)
           .then(() => this.getComments())
           .catch(err => console.error('Error creating a comment: ', err));
@@ -59,10 +60,11 @@ class CommentBox extends React.Component {
 }
 
 CommentBox.propTypes = {
-  user: propTypes.object,
-  event: propTypes.object,
-  timelineId: propTypes.string,
-  day: propTypes.object
+  user: propTypes.object.isRequired,
+  event: propTypes.object.isRequired,
+  timelineId: propTypes.string.isRequired,
+  day: propTypes.object.isRequired,
+  increment: propTypes.func.isRequired
 };
 
 export default CommentBox;

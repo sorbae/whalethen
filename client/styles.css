@@ -197,6 +197,10 @@ a {
   font-weight: bold;
 }
 
+.numComments {
+  padding-left: 5px;
+}
+
 button {
   border-radius: 2px;
   font-size: 16px;

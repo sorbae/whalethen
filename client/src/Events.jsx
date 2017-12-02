@@ -36,6 +36,7 @@ class Events extends React.Component {
     this.updateVotes = this.updateVotes.bind(this);
     this.patchVotesInDB = this.patchVotesInDB.bind(this);
     this.removeEvent = this.removeEvent.bind(this);
+    this.incrementNumComments = this.incrementNumComments.bind(this);
   }
   patchVotesInDB() {
     axios.put('/entry', {
@@ -62,7 +63,9 @@ class Events extends React.Component {
       }, this.patchVotesInDB);
     }
   }
-
+  incrementNumComments() {
+    this.setState({ numComments: this.state.numComments + 1 });
+  }
   render() {
     const { connectDragSource, isDragging } = this.props;
     const commentBox =
@@ -71,6 +74,7 @@ class Events extends React.Component {
         day={this.props.day}
         event={this.props.event}
         user={this.props.user}
+        increment={this.incrementNumComments}
       />);
 
     return connectDragSource(
@@ -83,7 +87,7 @@ class Events extends React.Component {
           <button className="removeButton" onClick={this.removeEvent} value={this.props.event._id}>x</button>
           <button onClick={() => this.setState({ commentView: !this.state.commentView })} className="comments"> 
             Comments
-            <span className="numComments">{this.state.numComments > 0 && this.state.numComments}</span>
+            {this.state.numComments > 0 && <span className="numComments">{this.state.numComments}</span>}
           </button>
           {this.state.commentView && commentBox}
         </div>
@@ -99,6 +103,7 @@ Events.propTypes = {
   getTrip: propTypes.func.isRequired,
   connectDragSource: propTypes.func.isRequired,
   isDragging: propTypes.bool.isRequired,
+  user: propTypes.instanceOf(Object).isRequired
 };
 
 export default DragSource(ItemTypes.EVENT, eventSource, collect)(Events);
