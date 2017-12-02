@@ -53,11 +53,11 @@ class Events extends React.Component {
       .catch(err => console.log(err));
   }
   updateVotes(e) {
-    if (e.target.value === '+') {
+    if (e.target.value === '+' && this.state.votes <= this.state.origin) {
       this.setState({
         votes: this.state.votes += 1,
       }, this.patchVotesInDB);
-    } else {
+    } else if (e.target.value === '-' && this.state.votes >= this.state.origin) {
       this.setState({
         votes: this.state.votes -= 1,
       }, this.patchVotesInDB);
