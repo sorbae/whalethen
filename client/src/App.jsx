@@ -41,7 +41,7 @@ class App extends React.Component {
     this.getTrip = this.getTrip.bind(this);
     this.handleId = this.handleId.bind(this);
     this.handleName = this.handleName.bind(this);
-    // this.onLookupEnter = this.onLookupEnter.bind(this);
+    this.onLookupEnter = this.onLookupEnter.bind(this);
     this.onCreateEnter = this.onCreateEnter.bind(this);
     this.handleNewEvent = this.handleNewEvent.bind(this);
     this.handleNewAddress = this.handleNewAddress.bind(this);
@@ -109,7 +109,7 @@ class App extends React.Component {
     }
   }
 
-  setDate() {
+  // setDate() {
     let today = moment().format('L').split('/');
     today = `${today[2]}-${today[0]}-${today[1]}`;
     this.setState({
