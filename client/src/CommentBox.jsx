@@ -12,6 +12,7 @@ class CommentBox extends React.Component {
     };
     this.getComments = this.getComments.bind(this);
     this.addComment = this.addComment.bind(this);
+    this.saveComment = this.saveComment.bind(this);
   }
 
   componentDidMount() {
@@ -29,21 +30,25 @@ class CommentBox extends React.Component {
       .catch(err => console.error('Error retrieving comments:', err));
   }
 
+  saveComment(text) {
+    const options = {
+      eventId: this.props.event._id,
+      timelineId: this.props.timelineId,
+      day: this.props.day.day,
+      username: this.props.user.username,
+      text,
+    };
+    return axios.post('/newComment', options)
+  }
+
   addComment(e) {
     if (e.key === 'Enter') {
       if (this.props.user) {
-        const options = {
-          eventId: this.props.event._id,
-          timelineId: this.props.timelineId,
-          day: this.props.day.day,
-          username: this.props.user.username,
-          text: e.target.value,
-        };
-        e.target.value = '';
         this.props.increment();
-        axios.post('/newComment', options)
+        this.saveComment(e.target.value)
           .then(() => this.getComments())
           .catch(err => console.error('Error creating a comment: ', err));
+        e.target.value = '';
       } else {
         e.target.value = 'Login to comment';
       }
@@ -54,7 +59,7 @@ class CommentBox extends React.Component {
     return (
       <div>
         <CommentList comments={this.state.comments} />
-        <CommentForm submitComment={this.addComment} />
+        <CommentForm addComment={this.addComment} />
       </div>);
   }
 }
