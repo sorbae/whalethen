@@ -26,11 +26,13 @@ const Timeline = (props) => {
     return _.map(timelineData, (day, i) => (<DayView timelineId={timelineId} day={day} key={i} onCreateEnter={onCreateEnter} handleNewEvent={handleNewEvent} handleNewAddress={handleNewAddress} createEvent={createEvent} getTrip={getTrip} />));
   };
 
+  const view = displayView();
+
   return (
     <div className="container timeline">
       <div>{timelineName}</div>
       <div className="container day">
-        {displayView()}
+        {view}
       </div>
     </div>
   );

@@ -32,5 +32,4 @@ Calendar.propTypes = {
   name: propTypes.string,
 
 };
-
 export default Calendar;
