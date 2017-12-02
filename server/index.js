@@ -2,8 +2,13 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const webpack = require('webpack');
+const passport = require('passport');
+const passportSetup = require('../auth/config');
+const authRoutes = require('../routes/auth-routes');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
+const cookieSession = require('cookie-session');
+const history = require('connect-history-api-fallback');
 const api = require('./placesApi.js');
 const db = require('../database/');
 const config = require('../webpack.config.js');
@@ -18,11 +23,19 @@ app.use(webpackDevMiddleware(compiler, {
 }));
 app.use(webpackHotMiddleware(compiler));
 app.use(cors());
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieSession({
+  maxAge: 24 * 60 * 60 * 1000,
+  keys: [process.env.COOKIEKEY],
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use('/auth', authRoutes);
+app.use(history());
 app.use(express.static(`${__dirname}/../client/`));
 
-app.options('/', (request, response) => response.json('GET,POST,PUT,GET'));
+app.options('/', (request, response) => response.json('GET,POST,PUT,GET,DELETE'));
 
 app.get('/timeline/:timelineName/:timelineId', (request, response) => {
   db.getTimelineById(request.params.timelineId)
@@ -45,16 +58,18 @@ app.post('/entry', ({ body }, response) => {
     .catch(() => response.sendStatus(409));
 });
 
-app.put('/entry', (request, response) => {
-  db.updateVotes(request.body.timelineId, request.body.day, request.body.eventId, request.body.votes)
+app.put('/entry', ({ body }, response) => {
+  db.updateVotes(body.timelineId, body.day, body.eventId, body.votes)
     .then(() => response.sendStatus(200))
     .tapCatch(err => console.error(err))
     .catch(() => response.sendStatus(409));
 });
 
-app.delete('/entry/:id', (request, response) => {
-  // for removing an entry from the day model
-  response.send('for removing an entry from the day model');
+app.delete('/entry/:timelineId/:day/:eventId', (request, response) => {
+  db.removeEventFromDay(request.params.day, request.params.timelineId, request.params.eventId)
+    .then(() => response.status(200).end())
+    .tapCatch(err => console.error(err))
+    .catch(() => response.status(409).end());
 });
 
 app.get('/search', (request, response) => {
@@ -66,6 +81,19 @@ app.get('/search', (request, response) => {
     })
     .tapCatch(err => console.error(err))
     .catch(() => response.sendStatus(409));
+});
+
+app.get('/comments/:timelineId/:day/:eventId', (request, response) => {
+  const { timelineId, day, eventId } = request.params;
+  db.getComments(timelineId, day, eventId)
+    .then((comments) => comments ? response.send(comments) : response.sendStatus(404))
+    .catch(err => console.log('Error fetching from database', err));
+});
+
+app.post('/newComment', (request, response) => {
+  const { day, timelineId, eventId, username, text } = request.body;
+  db.createComment(day, timelineId, eventId, username, text)
+    .then(() => response.sendStatus(201));
 });
 
 const port = process.env.PORT;

@@ -3,7 +3,6 @@ import _ from 'lodash';
 import propTypes from 'prop-types';
 import SearchEntry from './SearchEntry';
 
-
 const SearchList = (props) => {
   const {
     searchList,
@@ -29,10 +28,10 @@ const SearchList = (props) => {
 };
 
 SearchList.propTypes = {
-  searchList: propTypes.instanceOf(Array).isRequired,
+  searchList: propTypes.instanceOf(Array),
   addNewEvent: propTypes.func.isRequired,
   onDaySelect: propTypes.func.isRequired,
-  selectedDay: propTypes.string.isRequired,
+  selectedDay: propTypes.number.isRequired,
   numberOfDays: propTypes.number.isRequired,
 };
 

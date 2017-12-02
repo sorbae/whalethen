@@ -6,7 +6,6 @@ const TimelineInputBox = ({ onInput, onEnter }) => (
     <label className="timelineName" htmlFor="timelineName">
     Timeline Name:
     <input
-      id="timelineName"
       type="text"
       name="timelineName"
       onChange={event => onInput(event)}

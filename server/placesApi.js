@@ -1,5 +1,4 @@
 const request = require('request-promise');
-// const config = require('../config/config.js');
 const _ = require('lodash');
 require('dotenv').config();
 
@@ -43,30 +42,14 @@ const placesApi = (location, query, distance = 32000) => {
   };
 
   return getCoordinates(location)
-    .then(results => formatCoordinates(results))
-    .then((formatedCoors) => { options.qs.location = formatedCoors; })
+    .then(geocode => formatCoordinates(geocode))
+    .tap((formatedCoors) => { options.qs.location = formatedCoors; })
     .then(() => request(options))
-    .then(response => formatPlaces(response))
+    .then(queryResults => formatPlaces(queryResults))
     .catch(err => console.error(err));
-
-  // ?location=-33.8670522,151.1957362
-  // &radius=50&keyword=${query}&key=${apiKey}`
-  // pass string location into coordinates func
-  // add lat and long coordinatesto url string in place of location
-  // request with formated url
-  // return promise
 };
 
 
 // EXPORTS
 module.exports.placesApi = placesApi;
 module.exports.getCoordinates = getCoordinates;
-
-// getCoordinates('Mountain View')
-// .then(result => formatCoordinates(result))
-// .then(form => console.log(form))
-// .catch(err => console.error(err))
-
-// placesApi('mountain view', 'hiking')
-//   .then(result => console.log('success: ', result))
-//   .catch(err => console.error('fail: ', err));

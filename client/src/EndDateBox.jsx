@@ -1,13 +1,14 @@
 import React from 'react';
 import propTypes from 'prop-types';
 
-const EndDateBox = ({ onInput, onEnter }) => (
+const EndDateBox = ({ onInput, onEnter, startDate }) => (
   <div className="inputBox label">
     <label className="endDate" htmlFor="endDate">
       End Date:
       <input
         id="endDate"
-        type="text"
+        type="date"
+        min={startDate}
         name="endDate"
         onChange={event => onInput(event)}
         placeholder="enter an end date"
@@ -20,6 +21,7 @@ const EndDateBox = ({ onInput, onEnter }) => (
 EndDateBox.propTypes = {
   onInput: propTypes.func.isRequired,
   onEnter: propTypes.func.isRequired,
+  startDate: propTypes.string.isRequired,
 };
 
 export default EndDateBox;

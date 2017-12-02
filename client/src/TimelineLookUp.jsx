@@ -8,10 +8,10 @@ const TimelineLookUp = (props) => {
     getTrip,
     onLookupEnter,
   } = props;
-  
+
   return (
     <div className="inputBox">
-      <label className="timelineLookUp" htmlFor="timelineLookUp">
+      <label className="timelineLookUp label" htmlFor="timelineLookUp">
         Timeline Look Up:
       <input
         id="timelineLookUp"
@@ -19,6 +19,7 @@ const TimelineLookUp = (props) => {
         name="timelineLookUp"
         onChange={handleID}
         placeholder="enter ID"
+        onKeyUp={event => onLookupEnter(event)}
       />
         <input
           id="timelineLookUp"

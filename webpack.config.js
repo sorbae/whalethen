@@ -2,11 +2,11 @@ const webpack = require('webpack');
 const path = require('path');
 
 const DIST_DIR = path.resolve(__dirname, 'client/dist');
-const SRC_DIR = path.resolve(__dirname, 'client/src');
+const SRC_DIR = path.resolve(__dirname, 'client/');
 
 const config = {
   resolve: { extensions: ['.webpack.js', '.web.js', '.js', '.json', '.jsx'] },
-  entry: ['webpack-hot-middleware/client', `${SRC_DIR}/index.jsx`],
+  entry: ['webpack-hot-middleware/client?reload=true', `${SRC_DIR}/index.js`],
   output: {
     path: DIST_DIR,
     filename: 'bundle.js',
