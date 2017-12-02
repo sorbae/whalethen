@@ -20,13 +20,14 @@ class CommentBox extends React.Component {
   }
 
   getComments() {
-    const { event, timelineId, day } = this.props;
+    const { event, timelineId, day, getNumComments } = this.props;
     axios.get(`/comments/${timelineId}/${day.day}/${event._id}`)
       .then((comments) => {
         if (this.state.comments !== comments) {
           this.setState({ comments: comments.data });
         }
       })
+      .then(() => getNumComments(this.state.comments.length))
       .catch(err => console.error('Error retrieving comments:', err));
   }
 
@@ -69,7 +70,8 @@ CommentBox.propTypes = {
   event: propTypes.object.isRequired,
   timelineId: propTypes.string.isRequired,
   day: propTypes.object.isRequired,
-  increment: propTypes.func.isRequired
+  increment: propTypes.func.isRequired,
+  getNumComments: propTypes.func.isRequired
 };
 
 export default CommentBox;
