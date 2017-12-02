@@ -31,8 +31,8 @@ class Events extends React.Component {
     super(props);
     this.state = {
       votes: this.props.event.votes,
-      commentView: false,
-      numComments: 0,    
+      commentView: false,  
+      numComments: 0,
       origin: this.props.event.votes,
     };
     this.updateVotes = this.updateVotes.bind(this);
