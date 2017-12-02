@@ -18,22 +18,32 @@ const Timeline = (props) => {
     startDate,
     calendar,
   } = props;
-
+  
   const displayView = () => {
     if (calendar) {
-      return <Calendar events={timelineData} start={startDate} />;
+      return <Calendar events={timelineData} name={timelineName} start={startDate} />;
     }
-    return _.map(timelineData, (day, i) => (<DayView timelineId={timelineId} day={day} key={i} onCreateEnter={onCreateEnter} handleNewEvent={handleNewEvent} handleNewAddress={handleNewAddress} createEvent={createEvent} getTrip={getTrip} />));
+    return (
+      <div className="container day">
+        {_.map(timelineData, (day, i) => (
+          <DayView
+            timelineId={timelineId}
+            day={day}
+            key={i}
+            onCreateEnter={onCreateEnter}
+            handleNewEvent={handleNewEvent}
+            handleNewAddress={handleNewAddress}
+            createEvent={createEvent}
+            getTrip={getTrip}
+          />))}
+      </div>);
   };
 
   const view = displayView();
 
   return (
     <div className="container timeline">
-      <div>{timelineName}</div>
-      <div className="container day">
-        {view}
-      </div>
+      {view}
     </div>
   );
 };

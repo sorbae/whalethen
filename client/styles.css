@@ -21,11 +21,10 @@ body {
   padding: 10px;
 }
 
-/*.calendar {
-  border: 1px solid black;
-  margin: 0 10px;
-  height: 180px;
-}*/
+.calendar {
+  height: 100%;
+  width: 100%;
+}
 
 /***** Fonts ******/
 .label {

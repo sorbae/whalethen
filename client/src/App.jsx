@@ -124,7 +124,6 @@ class App extends React.Component {
           timelineData: data,
           numberOfDays: data.length,
           timelineId: data[0].timelineId,
-          timelineName: data[0].timelineName,
         });
       })
       .catch(err => console.error('Error getting trips ->', err));

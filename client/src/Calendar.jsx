@@ -27,9 +27,9 @@ const Calendar = (props) => {
 };
 
 Calendar.propTypes = {
-  events: propTypes.instanceOf(Object),
-  start: propTypes.string,
-  name: propTypes.string,
-
+  events: propTypes.instanceOf(Object).isRequired,
+  start: propTypes.string.isRequired,
+  name: propTypes.string.isRequired,
 };
+
 export default Calendar;
