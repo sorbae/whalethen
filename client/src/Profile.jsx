@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import propTypes from 'prop-types'
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import Home from './App';
 
 class Profile extends React.Component {
@@ -22,12 +22,23 @@ class Profile extends React.Component {
   checkAuth() {
     axios.get('/auth/checkAuth')
       .then(({ data }) => {
-        this.setState({ isLoggedIn: data.isLoggedIn, userInfo: data.user });
+        this.setState({ isLoggedIn: data.isLoggedIn, userInfo: data.user }, () => {
+          if (!this.state.isLoggedIn) {
+            this.props.history.replace('/home');
+          }
+        });
       });
   }
 
   render() {
     const user = this.state.userInfo;
+    if (!this.state.userInfo) {
+      return (
+        <div>
+          <img src="https://m.popkey.co/fe4ba7/DYALX.gif" alt="loading" />
+        </div>
+      )
+    }
     return (
       <div className="Profile">
         <div className="nav-links">
