@@ -38,10 +38,10 @@ export class MapContainer extends React.Component {
           name="Starting location"
           onClick={this.onMarkerClick}
         />
-        {this.props.addresses.map((spot) => {
+        {this.props.addresses.map((spot, index) => {
         return (
           <Marker
-            key={spot[0]}
+            key={index}
             name={spot[2]}
             position={{ lat: spot[0], lng: spot[1] }}
             onClick={this.onMarkerClick}
