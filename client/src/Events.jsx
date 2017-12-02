@@ -31,7 +31,7 @@ class Events extends React.Component {
     super(props);
     this.state = {
       votes: this.props.event.votes,
-      commentView: false,
+      commentView: false,  
       numComments: 0,
       origin: this.props.event.votes,
     };
@@ -39,6 +39,11 @@ class Events extends React.Component {
     this.patchVotesInDB = this.patchVotesInDB.bind(this);
     this.removeEvent = this.removeEvent.bind(this);
     this.incrementNumComments = this.incrementNumComments.bind(this);
+    this.getNumComments = this.getNumComments.bind(this);
+  }
+
+  componentDidMount() {
+    this.getNumComments()
   }
   patchVotesInDB() {
     axios.put('/entry', {
@@ -68,6 +73,14 @@ class Events extends React.Component {
   incrementNumComments() {
     this.setState({ numComments: this.state.numComments + 1 });
   }
+  getNumComments() {
+    const { event, timelineId, day } = this.props;
+    axios.get(`/comments/${timelineId}/${day.day}/${event._id}`)
+      .then((comments) => {
+        this.setState({ numComments: comments.data.length })
+      })
+      .catch(err => `Error getting comment count ->${err}`)
+  }
   render() {
     const { connectDragSource, isDragging } = this.props;
     const commentBox =
@@ -77,6 +90,7 @@ class Events extends React.Component {
         event={this.props.event}
         user={this.props.user}
         increment={this.incrementNumComments}
+        getNumComments={this.getNumComments}
       />);
 
     return connectDragSource(

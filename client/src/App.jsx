@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import Search from './Search';
 import Timeline from './Timeline';
 import TimelineInputBox from './TimelineInputBox';
+import TimelineLookup from './TimelineLookup';
 import StartDateBox from './StartDateBox';
 import EndDateBox from './EndDateBox';
 
@@ -33,7 +34,7 @@ class App extends React.Component {
     this.onEnter = this.onEnter.bind(this);
     this.addNewEvent = this.addNewEvent.bind(this);
     this.getTrip = this.getTrip.bind(this);
-    this.handleID = this.handleID.bind(this);
+    this.handleId = this.handleId.bind(this);
     this.handleName = this.handleName.bind(this);
     this.onLookupEnter = this.onLookupEnter.bind(this);
     this.onCreateEnter = this.onCreateEnter.bind(this);
@@ -108,7 +109,7 @@ class App extends React.Component {
           timelineName: data[0].timelineName,
         });
       })
-      .catch(err => console.error(err));
+      .catch(err => console.error('Error getting trips ->', err));
   }
 
   checkAuth() {
@@ -118,7 +119,7 @@ class App extends React.Component {
       });
   }
 
-  handleID(e) {
+  handleId(e) {
     this.setState({
       timelineId: e.target.value,
     });
@@ -203,6 +204,14 @@ class App extends React.Component {
           getTrip={this.getTrip}
           user={this.state.userInfo}
         />
+        <div>
+          <TimelineLookup 
+            handleId={this.handleId}
+            handleName={this.handleName}
+            getTrip={this.getTrip}
+            onLookupEnter={this.onLookupEnter}
+          />
+        </div>
         <Search
           numberOfDays={this.state.numberOfDays}
           addNewEvent={this.addNewEvent}

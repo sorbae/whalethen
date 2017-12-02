@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 
 const TimelineLookUp = (props) => {
   const {
-    handleID,
+    handleId,
     handleName,
     getTrip,
     onLookupEnter,
@@ -13,14 +13,14 @@ const TimelineLookUp = (props) => {
     <div className="inputBox">
       <label className="timelineLookUp label" htmlFor="timelineLookUp">
         Timeline Look Up:
-      <input
-        id="timelineLookUp"
-        type="text"
-        name="timelineLookUp"
-        onChange={handleID}
-        placeholder="enter ID"
-        onKeyUp={event => onLookupEnter(event)}
-      />
+        <input
+          id="timelineLookUp"
+          type="text"
+          name="timelineLookUp"
+          onChange={handleId}
+          placeholder="enter Id"
+          onKeyUp={event => onLookupEnter(event)}
+        />
         <input
           id="timelineLookUp"
           type="text"
@@ -29,14 +29,14 @@ const TimelineLookUp = (props) => {
           onKeyUp={event => onLookupEnter(event)}
           placeholder="enter Name"
         />
-        <button className="searchSubmit" onClick={getTrip}>Search ID</button>
+        <button className="searchSubmit" onClick={getTrip}>Search Id</button>
       </label>
     </div>
   );
 };
 
 TimelineLookUp.propTypes = {
-  handleID: propTypes.func.isRequired,
+  handleId: propTypes.func.isRequired,
   handleName: propTypes.func.isRequired,
   onLookupEnter: propTypes.func.isRequired,
   getTrip: propTypes.func.isRequired,
