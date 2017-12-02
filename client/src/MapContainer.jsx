@@ -64,5 +64,5 @@ MapContainer.propTypes = {
   google: propTypes.instanceOf(Object),
 };
 export default GoogleApiWrapper({
-  apiKey: 'AIzaSyAyesbQMyKVVbBgKVi2g6VX7mop2z96jBo',
+  apiKey: process.env.Free,
 })(MapContainer);
