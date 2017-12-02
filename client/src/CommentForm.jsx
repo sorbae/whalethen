@@ -1,10 +1,10 @@
 import React from 'react';
 
-const CommentForm = ({ submitComment }) => (
+const CommentForm = ({ addComment }) => (
   <div className="commentForm">
     <input 
       type="text" 
-      onKeyUp={event => submitComment(event)}
+      onKeyUp={event => addComment(event)}
     />
   </div>
 );
