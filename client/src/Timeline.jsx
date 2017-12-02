@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import propTypes from 'prop-types';
 import DayView from './Day';
-import CalendarView from './Calendar';
+import Calendar from './Calendar';
 
 const Timeline = (props) => {
   const {
@@ -21,8 +21,7 @@ const Timeline = (props) => {
 
   const displayView = () => {
     if (calendar) {
-      const c = timelineData.concat(Array(30).fill({_id: "", day: 4, timelineId: "Hy87fFyZG", __v: 0, events: []}));
-      return _.map(c, (day, i) => (<CalendarView key={i} i={i} day={day} start={startDate} />));
+      return <Calendar events={timelineData} start={startDate} />;
     }
     return _.map(timelineData, (day, i) => (<DayView timelineId={timelineId} day={day} key={i} onCreateEnter={onCreateEnter} handleNewEvent={handleNewEvent} handleNewAddress={handleNewAddress} createEvent={createEvent} getTrip={getTrip} />));
   };

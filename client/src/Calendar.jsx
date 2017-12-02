@@ -1,5 +1,9 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import Cal from 'react-big-calendar';
+import moment from 'moment';
+
+Cal.setLocalizer(Cal.momentLocalizer(moment));
 
 const Calendar = (props) => {
   const trip = props.start.split('-');
@@ -26,6 +30,7 @@ Calendar.propTypes = {
   events: propTypes.instanceOf(Object),
   start: propTypes.string,
   name: propTypes.string,
+
 };
 
 export default Calendar;
