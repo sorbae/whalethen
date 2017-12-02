@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 import Home from './App';
 
 class Profile extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       userInfo: '',
       isLoggedIn: false,
@@ -42,9 +42,5 @@ class Profile extends React.Component {
     );
   }
 }
-
-// Profile.propTypes = {
-//   user: propTypes.instanceOf(Object).isRequired,
-// };
 
 export default Profile;

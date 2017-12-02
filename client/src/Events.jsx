@@ -7,11 +7,12 @@ import { observe } from './Drop';
 import CommentBox from './CommentBox';
 
 const eventSource = {
-  beginDrag({ event, day, timelineId }) {
+  beginDrag({ event, day, timelineId }, monitor, component) {
     const selectedEvent = {
       event,
       timelineId,
       day: day.day,
+      votes: component.state.votes,
     };
     observe(selectedEvent);
     return selectedEvent;
@@ -31,7 +32,8 @@ class Events extends React.Component {
     this.state = {
       votes: this.props.event.votes,
       commentView: false,
-      numComments: 0    
+      numComments: 0,    
+      origin: this.props.event.votes,
     };
     this.updateVotes = this.updateVotes.bind(this);
     this.patchVotesInDB = this.patchVotesInDB.bind(this);
@@ -53,11 +55,11 @@ class Events extends React.Component {
       .catch(err => console.log(err));
   }
   updateVotes(e) {
-    if (e.target.value === '+') {
+    if (e.target.value === '+' && this.state.votes <= this.state.origin) {
       this.setState({
         votes: this.state.votes += 1,
       }, this.patchVotesInDB);
-    } else {
+    } else if (e.target.value === '-' && this.state.votes >= this.state.origin) {
       this.setState({
         votes: this.state.votes -= 1,
       }, this.patchVotesInDB);
