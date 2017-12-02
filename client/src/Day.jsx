@@ -15,9 +15,10 @@ const eventTarget = {
   },
 };
 
-function collect({ dropTarget }) {
+function collect({ dropTarget }, monitor) {
   return {
     connectDropTarget: dropTarget(),
+    isOver: monitor.isOver(),
   };
 }
 
@@ -27,6 +28,7 @@ const Day = (props) => {
     timelineId,
     onCreateEnter,
     connectDropTarget,
+    isOver,
     handleNewEvent,
     handleNewAddress,
     createEvent,
@@ -52,6 +54,17 @@ const Day = (props) => {
               key={index}
               getTrip={getTrip}
             />)
+          }
+          {isOver &&
+            <div style={{
+              height: '100px',
+              width: '99%',
+              margin: '0 auto',
+              zIndex: 1,
+              opacity: 0.1,
+              backgroundColor: 'blue',
+            }}
+            />
           }
         </div>
       </div>
