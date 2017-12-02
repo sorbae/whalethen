@@ -236,7 +236,7 @@ class App extends React.Component {
             startDate={this.state.startDate}
           />
           <button className="scheduleSubmit" onClick={() => this.onSubmit()}>New Schedule</button>
-          <button className="mapView" onClick={() => this.onToggleView()}>{buttonName}</button>
+          <button className="scheduleSubmit" onClick={() => this.onToggleView()}>{buttonName}</button>
         </div>
         <div>
           <TimelineLookup
