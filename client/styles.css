@@ -21,6 +21,12 @@ body {
   padding: 10px;
 }
 
+.calendar {
+  border: 1px solid black;
+  margin: 0 10px;
+  height: 180px;
+}
+
 /***** Fonts ******/
 .label {
   font-family: 'Cormorant Garamond', serif;
