@@ -45,9 +45,9 @@ app.get('/timeline/:timelineName/:timelineId', (request, response) => {
 });
 
 app.get('/address/:id', (request, response) => {
-  console.log(request.params.id, 'this is request');
   db.getEventAddress(request.params.id)
-    .then(result => response.send(result));
+    .then(result => response.send(result))
+    .then(() => response.sendStatus(200));
 });
 
 app.post('/timeline', ({ body }, response) => {
