@@ -6,11 +6,12 @@ import { ItemTypes } from './Constants';
 import { observe } from './Drop';
 
 const eventSource = {
-  beginDrag({ event, day, timelineId }) {
+  beginDrag({ event, day, timelineId }, monitor, component) {
     const selectedEvent = {
       event,
       timelineId,
       day: day.day,
+      votes: component.state.votes,
     };
     observe(selectedEvent);
     return selectedEvent;
