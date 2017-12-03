@@ -20,7 +20,6 @@ const SearchListEntry = (props) => {
       <div className="eventName">{event.name}</div>
       <div className="eventAddress">{event.address}</div>
       <div className="eventRating">{event.rating}</div>
-
       <div>
         <select className="selectDays" onChange={onDaySelect}>
           {daysArr.map(day => <option value={day} key={day}>{day}</option>)}

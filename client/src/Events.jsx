@@ -31,7 +31,7 @@ class Events extends React.Component {
     super(props);
     this.state = {
       votes: this.props.event.votes,
-      commentView: false,  
+      commentView: false,
       numComments: 0,
       origin: this.props.event.votes,
     };
@@ -101,7 +101,7 @@ class Events extends React.Component {
           <button className="votes" value="-" onClick={this.updateVotes}>-</button>
           <button className="votes" value="+" onClick={this.updateVotes}>+</button>
           <button className="removeButton" onClick={this.removeEvent} value={this.props.event._id}>x</button>
-          <button onClick={() => this.setState({ commentView: !this.state.commentView })} className="comments"> 
+          <button onClick={() => this.setState({ commentView: !this.state.commentView })} className="comments">
             Comments
             {this.state.numComments > 0 && <span className="numComments">{this.state.numComments}</span>}
           </button>
@@ -119,7 +119,7 @@ Events.propTypes = {
   getTrip: propTypes.func.isRequired,
   connectDragSource: propTypes.func.isRequired,
   isDragging: propTypes.bool.isRequired,
-  user: propTypes.instanceOf(Object).isRequired
+  user: propTypes.instanceOf(Object),
 };
 
 export default DragSource(ItemTypes.EVENT, eventSource, collect)(Events);
