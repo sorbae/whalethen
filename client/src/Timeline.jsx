@@ -16,11 +16,11 @@ const Timeline = (props) => {
     getTrip,
     user,
     startDate,
-    calendar,
+    view,
   } = props;
 
   const displayView = () => {
-    if (calendar) {
+    if (props.view === 'calendar') {
       return <Calendar events={timelineData} name={timelineName} start={startDate} />;
     }
     return (
@@ -58,7 +58,7 @@ Timeline.propTypes = {
   handleNewAddress: propTypes.func.isRequired,
   createEvent: propTypes.func.isRequired,
   getTrip: propTypes.func.isRequired,
-  calendar: propTypes.bool,
+  view: propTypes.string.isRequired,
 };
 
 export default Timeline;
