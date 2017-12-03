@@ -11,12 +11,12 @@ const api = require('./placesApi.js');
 const db = require('../database/');
 require('dotenv').config();
 const app = express();
-const compiler = webpack(config);
 
 if (process.env.NODE_ENV !== 'production') {
   const webpackHotMiddleware = require('webpack-hot-middleware');
   const webpackDevMiddleware = require('webpack-dev-middleware');
   const config = require('../webpack.config.js');
+  const compiler = webpack(config);
   app.use(webpackDevMiddleware(compiler, {
     noInfo: true,
     publicPath: config.output.publicPath,
