@@ -5,23 +5,22 @@ const webpack = require('webpack');
 const passport = require('passport');
 const passportSetup = require('../auth/config');
 const authRoutes = require('../routes/auth-routes');
-const webpackDevMiddleware = require('webpack-dev-middleware');
-const webpackHotMiddleware = require('webpack-hot-middleware');
 const cookieSession = require('cookie-session');
 const history = require('connect-history-api-fallback');
 const api = require('./placesApi.js');
 const db = require('../database/');
-const config = require('../webpack.config.js');
 require('dotenv').config();
-
 const app = express();
 const compiler = webpack(config);
-app.use(webpackDevMiddleware(compiler, {
-  noInfo: true,
-  publicPath: config.output.publicPath,
-}));
 
 if (process.env.NODE_ENV !== 'production') {
+  const webpackHotMiddleware = require('webpack-hot-middleware');
+  const webpackDevMiddleware = require('webpack-dev-middleware');
+  const config = require('../webpack.config.js');
+  app.use(webpackDevMiddleware(compiler, {
+    noInfo: true,
+    publicPath: config.output.publicPath,
+  }));
   app.use(webpackHotMiddleware(compiler));
 }
 app.use(cors());
