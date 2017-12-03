@@ -28,11 +28,12 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.jsx?/,
+        test: [/\.jsx?$/, /\.js?$/],
+        exclude: /(node_modules)/,
         include: SRC_DIR,
         loader: 'babel-loader',
         query: {
-          presets: ['react', 'env'],
+          presets: ['react', 'es2015', 'env'],
         },
       },
     ],
