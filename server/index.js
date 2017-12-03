@@ -44,6 +44,12 @@ app.get('/timeline/:timelineName/:timelineId', (request, response) => {
     .catch(() => response.status(409).end());
 });
 
+app.get('/address/:id', (request, response) => {
+  db.getEventAddress(request.params.id)
+    .then(result => response.send(result))
+    .then(() => response.sendStatus(200));
+});
+
 app.post('/timeline', ({ body }, response) => {
   db.addNewTimeline(body.timelineId, body.numberOfDays)
     .then(() => response.sendStatus(200))

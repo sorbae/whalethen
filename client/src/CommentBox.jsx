@@ -66,7 +66,7 @@ class CommentBox extends React.Component {
 }
 
 CommentBox.propTypes = {
-  user: propTypes.object.isRequired,
+  user: propTypes.object,
   event: propTypes.object.isRequired,
   timelineId: propTypes.string.isRequired,
   day: propTypes.object.isRequired,

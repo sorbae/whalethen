@@ -2,7 +2,6 @@ import React from 'react';
 import _ from 'lodash';
 import propTypes from 'prop-types';
 import { DropTarget } from 'react-dnd';
-
 import Event from './Events';
 import { updateEvent } from './Drop';
 import { ItemTypes } from './Constants';
