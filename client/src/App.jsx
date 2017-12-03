@@ -11,7 +11,6 @@ import TimelineInputBox from './TimelineInputBox';
 import TimelineLookup from './TimelineLookUp';
 import StartDateBox from './StartDateBox';
 import EndDateBox from './EndDateBox';
-// import CreateEventBox from './CreateEventBox';
 import MapView from './MapView';
 
 
@@ -45,7 +44,6 @@ class App extends React.Component {
     this.handleNewEvent = this.handleNewEvent.bind(this);
     this.handleNewAddress = this.handleNewAddress.bind(this);
     this.createEvent = this.createEvent.bind(this);
-    this.showCalendar = this.showCalendar.bind(this);
   }
 
   componentDidMount() {
@@ -165,12 +163,6 @@ class App extends React.Component {
       .catch(err => console.error('add event error: ', err));
   }
 
-  showCalendar() {
-    this.setState({
-      view: 'calendar',
-    });
-  }
-
   createEvent(day) {
     const eventObj = {
       name: this.state.newEvent,
@@ -195,21 +187,14 @@ class App extends React.Component {
           startDate={this.state.startDate}
           view={this.state.view}
         />);
-    } else if (this.state.view === 'mapview') {
-      return (
-        <MapView
-          timelineId={this.state.timelineId}
-        />);
     }
+    return (
+      <MapView
+        timelineId={this.state.timelineId}
+      />);
   }
 
   render() {
-    // let mapButton;
-    // if (this.state.view === 'default') {
-    //   mapButton = 'Map Trip';
-    // } else {
-    //   mapButton = 'Day to Day';
-    // }
     const timelineView = this.renderView();
 
     return (
@@ -243,7 +228,7 @@ class App extends React.Component {
           {this.state.timelineId && <button className="scheduleSubmit" onClick={() => this.onToggleView('mapview')}>Map Trip</button>}
           {this.state.timelineId && <button className="scheduleSubmit" onClick={() => this.onToggleView('calendar')}>Calendar</button>}
         </div>
-        <div>{timelineView}</div>
+        {timelineView}
         <div>
           <TimelineLookup
             handleId={this.handleId}
