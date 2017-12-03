@@ -6,7 +6,7 @@ const SRC_DIR = path.resolve(__dirname, 'client/');
 
 module.exports = {
   resolve: { extensions: ['.webpack.js', '.web.js', '.js', '.json', '.jsx'] },
-  entry: ['webpack-hot-middleware/client?reload=true', `${SRC_DIR}/index.js`],
+  entry: [`${SRC_DIR}/index.js`],
   output: {
     path: DIST_DIR,
     filename: 'bundle.js',
