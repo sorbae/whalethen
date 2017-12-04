@@ -11,7 +11,8 @@
   "scripts": {
     "start": "node server/index.js",
     "server-dev": "nodemon server/index.js",
-    "react-dev": "webpack -d --watch --hot"
+    "react-dev": "webpack -d --watch --hot",
+    "dev": "webpack-dev-server"
   },
   "dependencies": {
     "axios": "^0.17.1",
@@ -50,7 +51,6 @@
     "request": "^2.83.0",
     "request-promise": "^4.2.2",
     "shortid": "^2.2.8",
-    "webpack": "^3.8.1",
     "webpack-dev-middleware": "^1.12.2",
     "webpack-hot-middleware": "^2.21.0"
   },
@@ -65,7 +65,9 @@
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.4.0",
-    "webpack-dev-server": "^2.9.4"
+    "webpack": "^3.8.1",
+    "webpack-dev-server": "^2.9.4",
+    "webpack-merge": "^4.1.1"
   },
   "babel": {
     "presets": [

@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const webpack = require('webpack');
 const passport = require('passport');
 const passportSetup = require('../auth/config');
 const authRoutes = require('../routes/auth-routes');
@@ -12,17 +11,17 @@ const db = require('../database/');
 require('dotenv').config();
 const app = express();
 
-if (process.env.NODE_ENV !== 'production') {
-  const webpackHotMiddleware = require('webpack-hot-middleware');
-  const webpackDevMiddleware = require('webpack-dev-middleware');
-  const config = require('../webpack.config.js');
-  const compiler = webpack(config);
-  app.use(webpackDevMiddleware(compiler, {
-    noInfo: true,
-    publicPath: config.output.publicPath,
-  }));
-  app.use(webpackHotMiddleware(compiler));
-}
+// if (process.env.NODE_ENV !== 'production') {
+//   const webpackHotMiddleware = require('webpack-hot-middleware');
+//   const webpackDevMiddleware = require('webpack-dev-middleware');
+//   const config = require('../webpack.config.js');
+//   const compiler = webpack(config);
+//   app.use(webpackDevMiddleware(compiler, {
+//     noInfo: true,
+//     publicPath: config.output.publicPath,
+//   }));
+//   app.use(webpackHotMiddleware(compiler));
+// }
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
