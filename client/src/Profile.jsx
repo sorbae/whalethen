@@ -3,6 +3,7 @@ import axios from 'axios';
 import propTypes from 'prop-types'
 import { Link, Redirect } from 'react-router-dom';
 import Home from './App';
+import UserTripList from './UserTripList';
 
 class Profile extends React.Component {
   constructor() {
@@ -49,6 +50,7 @@ class Profile extends React.Component {
         <div>
           Hello, {user.username}!
         </div>
+        <UserTripList user={this.state.userInfo} />
       </div>
     );
   }
