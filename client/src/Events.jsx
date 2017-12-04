@@ -95,19 +95,26 @@ class Events extends React.Component {
 
     return connectDragSource(
       <div className="event" style={{ opacity: isDragging ? 0.5 : 1 }}>
-        <div className="eventName">{this.props.event.name}</div>
-        <div className="description">{this.props.event.address}</div>
-        <div className="vote">{`Votes: ${this.state.votes}`}
-          <button className="votes" value="-" onClick={this.updateVotes}>-</button>
-          <button className="votes" value="+" onClick={this.updateVotes}>+</button>
+        <div className="event-header">
+          <div className="eventName">{this.props.event.name}</div>
           <button className="removeButton" onClick={this.removeEvent} value={this.props.event._id}>x</button>
-          <button onClick={() => this.setState({ commentView: !this.state.commentView })} className="comments">
+        </div>
+        <div className="description">{this.props.event.address}</div>
+        <div className="event-vote">
+          <div className="vote">{`votes: ${this.state.votes}`}</div>
+          <div className="vote-buttons">
+            <button className="votes" value="-" onClick={this.updateVotes}>-</button>
+            <button className="votes" value="+" onClick={this.updateVotes}>+</button>
+          </div>
+        </div>
+        <div className="comments">
+          <button onClick={() => this.setState({ commentView: !this.state.commentView })}>
             Comments
             {this.state.numComments > 0 && <span className="numComments">{this.state.numComments}</span>}
           </button>
           {this.state.commentView && commentBox}
         </div>
-      </div>,
+      </div>
     );
   }
 }

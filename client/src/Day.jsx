@@ -58,9 +58,9 @@ const Day = (props) => {
           }
           {isOver &&
             <div style={{
-              height: '100px',
+              height: '70px',
               width: '99%',
-              margin: '0 auto',
+              margin: '3px 0',
               zIndex: 1,
               opacity: 0.1,
               backgroundColor: 'blue',

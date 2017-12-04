@@ -58,7 +58,7 @@ class CommentBox extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="comment-box">
         <CommentList comments={this.state.comments} />
         <CommentForm addComment={this.addComment} />
       </div>);

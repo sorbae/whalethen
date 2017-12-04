@@ -20,7 +20,7 @@ class App extends React.Component {
     super();
     this.state = {
       isLoggedIn: false,
-      userInfo: null,
+      userInfo: '',
       timelineData: [],
       timelineName: '', // temp until we get some more data built up
       startDate: '',
@@ -186,12 +186,13 @@ class App extends React.Component {
         <Timeline
           timelineData={this.state.timelineData}
           timelineId={this.state.timelineId}
-          timelineName={this.state.timelineName}
+          timelineName={this.state.timelineNamce}
           onCreateEnter={this.onCreateEnter}
           handleNewEvent={this.handleNewEvent}
           handleNewAddress={this.handleNewAddress}
           createEvent={this.createEvent}
           getTrip={this.getTrip}
+          user={this.state.userInfo}
         />);
     } else if (this.state.view === 'mapview') {
       return (
@@ -223,7 +224,10 @@ class App extends React.Component {
         )}
         <div className="title">Whale Then..</div>
         <div className="container timelineParams">
-          <TimelineInputBox onInput={this.onInputChange} onEnter={this.onEnter} />
+          <TimelineInputBox
+            onInput={this.onInputChange}
+            onEnter={this.onEnter}
+          />
           <StartDateBox
             onInput={this.onInputChange}
             onEnter={this.onEnter}
@@ -234,8 +238,10 @@ class App extends React.Component {
             onEnter={this.onEnter}
             startDate={this.state.startDate}
           />
-          <button className="scheduleSubmit" onClick={() => this.onSubmit()}>New Schedule</button>
-          <button className="scheduleSubmit" onClick={() => this.onToggleView()}>{buttonName}</button>
+          <div className="timeline-buttons">
+            <button onClick={() => this.onSubmit()}>New Schedule</button>
+            <button onClick={() => this.onToggleView()}>{buttonName}</button>
+          </div>
         </div>
         <div>{this.renderView()}</div>
         <div>

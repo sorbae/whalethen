@@ -1,11 +1,10 @@
 import React from 'react';
 import propTypes from 'prop-types';
 
-
 const StartDateBox = ({ onInput, onEnter, today }) => (
   <div className="inputBox label">
     <label className="startDate" htmlFor="startDate">
-    Start Date:
+    <div>Start Date:</div>
     <input
       id="startDate"
       type="date"
