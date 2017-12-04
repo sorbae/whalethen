@@ -2,7 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 
 const DIST_DIR = path.resolve(__dirname, 'client/dist');
-const SRC_DIR = path.resolve(__dirname, 'client/');
+const SRC_DIR = path.resolve(__dirname, 'client');
 
 module.exports = {
   resolve: { extensions: ['.webpack.js', '.web.js', '.js', '.json', '.jsx'] },
@@ -12,17 +12,14 @@ module.exports = {
     filename: 'bundle.js',
     publicPath: '/client/',
   },
-  plugins: [
-    // OccurenceOrderPlugin is needed for webpack 1.x only
-    new webpack.HotModuleReplacementPlugin(),
-    // Use NoErrorsPlugin for webpack 1.x
-    new webpack.NoEmitOnErrorsPlugin(),
-  ],
+  devServer: {
+    contentBase: SRC_DIR,
+  },
   module: {
     loaders: [
       {
         test: [/\.jsx?$/, /\.js?$/],
-        exclude: /(node_modules)/,
+        exclude: /node_modules/,
         include: SRC_DIR,
         loader: 'babel-loader',
         query: {
