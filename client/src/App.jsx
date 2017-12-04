@@ -244,6 +244,10 @@ class App extends React.Component {
           </div>
         </div>
         <div>{this.renderView()}</div>
+        <Search
+          numberOfDays={this.state.numberOfDays}
+          addNewEvent={this.addNewEvent}
+        />
         <div>
           <TimelineLookup
             handleId={this.handleId}
@@ -252,10 +256,6 @@ class App extends React.Component {
             onLookupEnter={this.onLookupEnter}
           />
         </div>
-        <Search
-          numberOfDays={this.state.numberOfDays}
-          addNewEvent={this.addNewEvent}
-        />
       </div>
     );
   }

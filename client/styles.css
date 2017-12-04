@@ -8,12 +8,13 @@ body {
 .App {
   display: grid;
   grid-template-columns: 4fr 1fr;
-  grid-template-rows: 5% 15% 5% auto;
+  grid-template-rows: 5% 15% 5% 70% 5%;
   grid-template-areas:
     "navbar navbar"
     "title title"
     "createTimeline search"
-    "timeline search";
+    "timeline search"
+    "lookup search";
 }
 
 /***** General ******/
@@ -41,7 +42,7 @@ button {
 }
 
 .scroll {
-  height: 50vh;
+  height: 45vh;
   overflow: auto;
 }
 
@@ -89,13 +90,12 @@ button, .label, .day {
 .timeline-buttons {
   display: flex;
   align-items: flex-end;
-  height: 92%;
 }
 
 .timeline {
   display: flex;
   grid-area: timeline;
-  height: 75vh;
+  height: 67vh;
   flex: 1;
   overflow: auto;
   font-size: 1.1em;
@@ -138,12 +138,12 @@ button, .label, .day {
   display: flex;
   overflow: hidden;
   flex-direction: column;
-  height: 75vh;
+  height: 67vh;
 }
 
 .day {
   display: flex;
-  min-height: min-content;
+  /*min-height: min-content;*/
   background: white;
   font-size: 1.1rem;
   font-weight: bold;
@@ -182,7 +182,7 @@ button, .label, .day {
 }
 
 .events {
-  height: 50vh;
+  height: 45vh;
   overflow: hidden;
 }
 
@@ -236,4 +236,13 @@ button, .label, .day {
 
 commentForm input {
   width: 100%;
+}
+
+/***** Timeline lookup *****/
+.timelineLookUp.label {
+  grid-area: lookup;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 10px;
 }

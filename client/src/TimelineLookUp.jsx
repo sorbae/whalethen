@@ -8,6 +8,7 @@ const TimelineLookUp = (props) => {
     getTrip,
     onLookupEnter,
   } = props;
+  // <button className="mapView">Map View</button>
 
   return (
     <div className="inputBox">
@@ -18,7 +19,7 @@ const TimelineLookUp = (props) => {
           type="text"
           name="timelineLookUp"
           onChange={handleId}
-          placeholder="enter Id"
+          placeholder="enter id"
           onKeyUp={event => onLookupEnter(event)}
         />
         <input
@@ -27,10 +28,9 @@ const TimelineLookUp = (props) => {
           name="timelineLookUp"
           onChange={handleName}
           onKeyUp={event => onLookupEnter(event)}
-          placeholder="enter Name"
+          placeholder="enter name"
         />
         <button className="searchSubmit" onClick={getTrip}>Search ID</button>
-        <button className="mapView">Map View</button>
       </label>
     </div>
   );

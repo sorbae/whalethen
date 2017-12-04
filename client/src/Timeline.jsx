@@ -18,7 +18,7 @@ const Timeline = (props) => {
 
   return (
     <div className="container timeline">
-      <div>{timelineName}</div>
+      {timelineName}
       <div className="container day">
         {_.map(timelineData, (day, index) => (
           <DayView
